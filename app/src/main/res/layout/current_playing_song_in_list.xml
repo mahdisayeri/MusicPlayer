@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="clickHandler"
+            type="com.tokastudio.music_offline.view.activity.MainActivity.ClickHandler" />
+
+        <variable
+           name="listItem"
+           type="com.tokastudio.music_offline.model.Song" />
+    </data>
+
+<!--    android:visibility="@{listItem ? View.VISIBLE : View.GONE, default=gone}"-->
+    <LinearLayout
+        android:id="@+id/currentPlayingLayout"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{(view) -> clickHandler.clickOnCurrentPlayingSong(view)}"
+        android:background="@color/white1"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<!--        <ImageView-->
+<!--            android:id="@+id/image"-->
+<!--            android:padding="5dp"-->
+<!--            bind:loadSongCover="@{listItem.data}"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp" />-->
+
+        <LinearLayout
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                tools:text="Title"
+                android:text="@{listItem.title}"
+                android:textColor="?attr/colorButtonNormal"
+                android:maxLines="1"
+                android:textDirection="ltr"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                tools:text="Artist Name"
+                android:text="@{listItem.artistName}"
+                android:textColor="?attr/colorButtonNormal"
+                android:maxLines="1"
+                android:textDirection="ltr"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:src="@{listItem.isPlaying ? @drawable/ic_round_pause_24 : @drawable/ic_round_play_arrow_24 , default= @drawable/ic_round_play_arrow_24}"
+            android:tint="@{listItem.isPlaying ? @color/colorAccent : @color/colorPrimary , default= @color/colorPrimary}"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

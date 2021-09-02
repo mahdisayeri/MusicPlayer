@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+       <variable
+           name="listItem"
+           type="com.tokastudio.music_offline.model.Song" />
+    </data>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{clickListener}"
+        android:gravity="center_vertical"
+        android:background="@{listItem.isPlaying ? @color/colorBackGround : @color/colorPrimary , default= @color/colorPrimary}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:padding="5dp"
+            bind:loadSquareSongCover="@{listItem.songCover}"
+            android:src="@drawable/music_placeholder2"
+            android:layout_margin="5dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@{listItem.title}"
+                android:textDirection="ltr"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="@{listItem.artistName}"
+                android:textDirection="ltr"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:onClick="@{clickListener}"
+            android:src="@{listItem.isPlaying ? @drawable/ic_round_pause_24 : @drawable/ic_round_play_arrow_24 , default= @drawable/ic_round_play_arrow_24}"
+            android:tint="@{listItem.isPlaying ? @color/colorAccent : @color/white1 , default= @color/white1}"
+            android:layout_margin="5dp"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- grey_theme -->
+<!--    <color name="colorPrimary">#4e4e4e</color>-->
+<!--    <color name="colorPrimaryDark">#434343</color>-->
+<!--    <color name="colorAccent">#F88937</color>-->
+
+    <!-- navy_theme -->
+    <color name="colorPrimary">#29343a</color>
+    <color name="colorPrimaryDark">#151a1e</color>
+    <color name="colorAccent">#01c8b5</color>
+    <color name="colorBackGround">#232c31 </color>
+    <color name="colorShadow">#90a4ad</color>
+
+    <color name="colorPrimaryWhite">#384B55</color>
+    <color name="red">#E83C3C</color>
+    <color name="green">#058A3C</color>
+    <color name="blue">#0091EA</color>
+
+    <color name="white1">#FFFFFF</color>
+    <color name="white2">#D5D2D2</color>
+    <color name="white3">#BFBDBD</color>
+    <color name="white4">#9A9898</color>
+
+
+</resources>

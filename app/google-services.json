@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "95295527448",
+    "firebase_url": "https://shadmehr-offline.firebaseio.com",
+    "project_id": "shadmehr-offline",
+    "storage_bucket": "shadmehr-offline.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95295527448:android:afafff7199cb7b3f8c816d",
+        "android_client_info": {
+          "package_name": "com.tokastudio.shadmehr_offline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95295527448-fctnj3si7k2soav2ukn0aqaksjk8i3gm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tokastudio.shadmehr_offline",
+            "certificate_hash": "4b6f343416675e0f1e7d51c533d13b72644fe0ae"
+          }
+        },
+        {
+          "client_id": "95295527448-b7qnucv9l8fjfl6phfmeccu2i7d4dkv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCls4vfN-yoH_M-kKE8HeN3RXr_XlHRgCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95295527448-b7qnucv9l8fjfl6phfmeccu2i7d4dkv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

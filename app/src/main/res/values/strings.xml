@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">Shadmehr Aghili</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="exit">Exit</string>
+    <string name="album_name">Album Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="empty_list">Empty List</string>
+    <string name="share_with">Share With</string>
+
+    <string name="show_poster">Poster</string>
+    <string name="other_apps">Other Apps</string>
+    <string name="favorites">Favorite</string>
+    <string name="musics">Musics</string>
+    <string name="request_track">Request Music</string>
+    <string name="zero_time" translatable="false">00:00</string>
+    <string name="msg_token_fmt" translatable="false" />
+    <string name="msg_subscribed" translatable="false">msg_subscribed</string>
+    <string name="msg_subscribe_failed" translatable="false">msg_subscribe_failed</string>
+
+    <!-- adMob-->
+    <!--    <string name="ad_attribution">Ad</string>-->
+    <!--    <string name="adMob_appId">ca-app-pub-7955922263522030~9783698203</string>-->
+    <!--    <string name="native_ad_id_home">ca-app-pub-7955922263522030/7681697329</string>-->
+    <!--    <string name="native_ad_id_trackPlaying">ca-app-pub-7955922263522030/2644993064</string>-->
+    <!--    <string name="interstitial_ad_id_homeToTrackList">ca-app-pub-7955922263522030/3339768265</string>-->
+
+    <!--adMob Test id -->
+    <string name="ad_attribution" translatable="false">Ad</string>
+    <string name="adMob_appId" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="native_ad_id_home" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="native_ad_id_trackPlaying" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="interstitial_ad_id_homeToTrackList" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+
+    <string name="enter_trackName">Music Name</string>
+    <string name="send_email">Send Email</string>
+    <string name="please_enter_artistName">Please Enter Artist</string>
+    <string name="track_cover">Track Cover</string>
+    <string name="equalizer" translatable="false">equalizer</string>
+    <string name="title_activity_tab" translatable="false">TabActivity</string>
+    <string name="tab_text_1">Songs</string>
+    <string name="tab_text_2">Artists</string>
+    <string name="offline_musics">My Phone Musics</string>
+    <string name="cancel">Cancel</string>
+    <string name="songs">Songs</string>
+    <string name="artists">Artists</string>
+    <string name="show_lyric">Lyric</string>
+    <string name="enter_artistName">Artist Name</string>
+    <string name="message_support">Support us by giving stars</string>
+    <string name="artist_name">Shadmehr Aghili</string>
+    <string name="share_message">Anthology of the best songs of Shadmehr Aghili download from Google Play</string>
+
+</resources>

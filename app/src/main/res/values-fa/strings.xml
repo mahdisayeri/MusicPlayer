@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">شادمهر عقیلی</string>
+    <string name="exit">خروج</string>
+    <string name="show_lyric">متن آهنگ</string>
+    <string name="show_poster">پوستر آهنگ</string>
+    <string name="other_apps">دیگر برنامه ها</string>
+    <string name="favorites">مورد علاقه ها</string>
+    <string name="musics">آهنگ ها</string>
+    <string name="request_track">درخواست آهنگ</string>
+    <string name="enter_artistName">نام خواننده</string>
+    <string name="enter_trackName">"نام آهنگ "</string>
+    <string name="send_email">ارسال ایمیل</string>
+    <string name="please_enter_artistName">"لطفا نام خواننده را وارد کنید "</string>
+    <string name="tab_text_1">آهنگ ها</string>
+    <string name="tab_text_2">خواننده ها</string>
+    <string name="offline_musics">آهنگ های گوشی</string>
+    <string name="cancel">انصراف</string>
+    <string name="songs">آهنگ ها</string>
+    <string name="artists">خواننده ها</string>
+    <string name="track_cover">کاور آهنگ</string>
+    <string name="share_with">اشتراک با</string>
+    <string name="empty_list">" آیتمی وجود ندارد"</string>
+    <string name="album_name">نام آلبوم</string>
+    <string name="message_support">با دادن 5 ستاره از ما حمایت کنید</string>
+    <string name="artist_name">شادمهر عقیلی</string>
+    <string name="share_message">"گلچین بهترین آهنگ های شادمهر عقیلی   دریافت از گوگل پلی "</string>
+</resources>
