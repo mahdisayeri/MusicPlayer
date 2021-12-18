@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.activity
+package com.tokastudio.music_offline.ui.activity
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

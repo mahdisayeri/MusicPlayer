@@ -1,9 +1,6 @@
-package com.tokastudio.music_offline.view.fragment
+package com.tokastudio.music_offline.ui.fragment
 
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -17,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -25,7 +23,7 @@ import com.tokastudio.music_offline.R
 import com.tokastudio.music_offline.databinding.FragmentOfflineBinding
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Song
-import com.tokastudio.music_offline.view.fragment.offline.SectionsPagerAdapter
+import com.tokastudio.music_offline.ui.fragment.offline.SectionsPagerAdapter
 
 private val TAB_TITLES = arrayOf(
         R.string.tab_text_1,

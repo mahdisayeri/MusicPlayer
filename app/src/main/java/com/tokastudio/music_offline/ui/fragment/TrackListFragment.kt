@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.fragment
+package com.tokastudio.music_offline.ui.fragment
 
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
@@ -23,7 +23,7 @@ import com.tokastudio.music_offline.databinding.FragmentTrackListBinding
 import com.tokastudio.music_offline.service.TrackService
 import com.tokastudio.music_offline.adapter.TrackAdapter
 import com.tokastudio.music_offline.model.Song
-import com.tokastudio.music_offline.view.activity.SharedViewModel
+import com.tokastudio.music_offline.ui.activity.SharedViewModel
 import com.tokastudio.music_offline.viewmodels.TrackListViewModel
 
 /**

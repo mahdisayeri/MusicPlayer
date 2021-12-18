@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+       <variable
+           name="listItem"
+           type="com.tokastudio.music_offline.model.Song" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:clickable="true"
+        android:focusable="true"
+        bind:cardElevation="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="@{clickListener}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--        android:background="@{listItem.isPlaying ? @color/colorBackGround : @color/colorPrimary , default= @color/colorPrimary}"-->
+
+            <!--        bind:loadSquareSongCover="@{listItem.songCover}"-->
+
+            <androidx.cardview.widget.CardView
+                bind:cardCornerRadius="8dp"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/image"
+                    android:src="@drawable/music_placeholder2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@{listItem.title}"
+                    android:textDirection="ltr"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@{listItem.artistName}"
+                    android:textDirection="ltr"
+                    android:maxLines="1"
+                    android:textSize="12sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <eu.gsottbauer.equalizerview.EqualizerView
+                android:id="@+id/equalizer"
+                android:visibility="@{listItem.playing ? View.VISIBLE : View.GONE,default= gone}"
+                bind:barColor="@color/colorAccent"
+                bind:barCount="5"
+                bind:animationDuration="2000"
+                bind:barWidth="2dp"
+                bind:runInBatterySaveMode="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+            <ImageButton
+                android:visibility="gone"
+                android:onClick="@{clickListener}"
+                android:src="@{listItem.isPlaying ? @drawable/ic_round_pause_24 : @drawable/ic_round_play_arrow_24 , default= @drawable/ic_round_play_arrow_24}"
+                android:tint="@{listItem.isPlaying ? @color/colorAccent : @color/white1 , default= @color/white1}"
+                android:layout_margin="5dp"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

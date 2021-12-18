@@ -7,11 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".view.fragment.offline.SongsFragment">
+    tools:context=".ui.fragment.offline.SongsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        tools:listitem="@layout/list_item_song"
+        tools:listitem="@layout/list_item_Track"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

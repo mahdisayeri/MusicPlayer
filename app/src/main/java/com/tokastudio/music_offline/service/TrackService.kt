@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.content.res.AssetFileDescriptor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.media.AudioManager
 import android.media.AudioManager.*
 import android.media.MediaMetadataRetriever
@@ -20,17 +19,13 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.support.v4.media.session.MediaSessionCompat
 import android.util.Log
-import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.R
 import com.tokastudio.music_offline.TrackControllerA
 import com.tokastudio.music_offline.model.Song
-import com.tokastudio.music_offline.view.activity.MainActivity
+import com.tokastudio.music_offline.ui.activity.MainActivity
 import java.io.IOException
 import java.util.*
 

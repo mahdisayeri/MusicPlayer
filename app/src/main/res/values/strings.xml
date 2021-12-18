@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shadmehr Aghili</string>
+    <string name="app_name">TOKA Player</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
@@ -41,7 +41,7 @@
     <string name="track_cover">Track Cover</string>
     <string name="equalizer" translatable="false">equalizer</string>
     <string name="title_activity_tab" translatable="false">TabActivity</string>
-    <string name="tab_text_1">Songs</string>
+    <string name="tab_text_1">Tracks</string>
     <string name="tab_text_2">Artists</string>
     <string name="offline_musics">My Phone Musics</string>
     <string name="cancel">Cancel</string>

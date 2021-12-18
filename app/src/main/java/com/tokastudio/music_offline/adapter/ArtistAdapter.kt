@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tokastudio.music_offline.ListItemClickListener
 import com.tokastudio.music_offline.databinding.ListItemArtistBinding
-import com.tokastudio.music_offline.databinding.ListItemSongBinding
 import com.tokastudio.music_offline.model.Song
 
 class ArtistAdapter(private val listItemClickListener: ListItemClickListener): RecyclerView.Adapter<ArtistAdapter.MyViewHolder>() {

@@ -9,14 +9,14 @@
             type="com.tokastudio.music_offline.model.Song" />
         <variable
             name="clickHandler"
-            type="com.tokastudio.music_offline.view.fragment.TrackListFragment.OnClickHandler" />
+            type="com.tokastudio.music_offline.ui.fragment.TrackListFragment.OnClickHandler" />
     </data>
 
 <RelativeLayout
     android:background="@color/colorBackGround"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.TrackListFragment">
+    tools:context=".ui.fragment.TrackListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_above="@+id/trackList_controlPanel"

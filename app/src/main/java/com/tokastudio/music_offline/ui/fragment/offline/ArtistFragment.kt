@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.fragment.offline
+package com.tokastudio.music_offline.ui.fragment.offline
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.tokastudio.music_offline.databinding.FragmentArtistBinding
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Song
 import com.tokastudio.music_offline.service.TrackService
-import com.tokastudio.music_offline.view.activity.SharedViewModel
+import com.tokastudio.music_offline.ui.activity.SharedViewModel
 
 class ArtistFragment : Fragment(),ListItemClickListener {
 

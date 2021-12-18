@@ -4,7 +4,7 @@
     <data>
         <variable
             name="clickHandler"
-            type="com.tokastudio.music_offline.view.fragment.HomeFragment.ClickHandler" />
+            type="com.tokastudio.music_offline.ui.fragment.HomeFragment.ClickHandler" />
     </data>
         <LinearLayout
             android:paddingBottom="50dp"

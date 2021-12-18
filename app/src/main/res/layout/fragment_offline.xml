@@ -12,20 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorBackGround"
-        tools:context=".view.fragment.OfflineFragment">
+        tools:context=".ui.fragment.OfflineFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:elevation="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                app:title="@string/app_name"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:menu="@menu/tracks_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 style="@style/Widget.Design.TabLayout"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorAccent"
-                android:background="@color/colorPrimaryDark"
+                app:tabIndicatorColor="@color/colorAccent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

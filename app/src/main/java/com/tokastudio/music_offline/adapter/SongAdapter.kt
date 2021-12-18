@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tokastudio.music_offline.ListItemClickListener
-import com.tokastudio.music_offline.databinding.ListItemSongBinding
+import com.tokastudio.music_offline.databinding.ListItemTrackBinding
 import com.tokastudio.music_offline.model.Song
 
 class SongAdapter(private val listItemClickListener: ListItemClickListener): RecyclerView.Adapter<SongAdapter.MyViewHolder>() {
@@ -13,7 +13,7 @@ class SongAdapter(private val listItemClickListener: ListItemClickListener): Rec
     private var playingPos: Int?= null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-       return MyViewHolder(ListItemSongBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+       return MyViewHolder(ListItemTrackBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -29,7 +29,7 @@ class SongAdapter(private val listItemClickListener: ListItemClickListener): Rec
         notifyDataSetChanged()
     }
 
-    inner class MyViewHolder(private val binding: ListItemSongBinding): RecyclerView.ViewHolder(binding.root){
+    inner class MyViewHolder(private val binding: ListItemTrackBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: Song, listItemClickListener: ListItemClickListener){
             binding.listItem= item
             if (item.isPlaying) playingPos= adapterPosition
@@ -37,17 +37,21 @@ class SongAdapter(private val listItemClickListener: ListItemClickListener): Rec
             binding.setClickListener {
                 if (playingPos != null){
                     if (playingPos == adapterPosition){
-                        songs?.get(adapterPosition)?.isPlaying = songs?.get(adapterPosition)?.isPlaying != true
-                        notifyItemChanged(adapterPosition)
+                      //  songs?.get(adapterPosition)?.isPlaying = songs?.get(adapterPosition)?.isPlaying != true
+                      //  notifyItemChanged(adapterPosition)
                     }else{
                         songs?.get(playingPos!!)?.isPlaying= false
+
                         notifyItemChanged(playingPos!!)
+
                         songs?.get(adapterPosition)?.isPlaying= true
+                        binding.equalizer.animateBars()
                         notifyItemChanged(adapterPosition)
                     }
                 }else{
                     playingPos=adapterPosition
                     songs?.get(adapterPosition)?.isPlaying= true
+                    binding.equalizer.animate()
                     notifyItemChanged(adapterPosition)
                 }
                 listItemClickListener.onListItemClick(adapterPosition, item)

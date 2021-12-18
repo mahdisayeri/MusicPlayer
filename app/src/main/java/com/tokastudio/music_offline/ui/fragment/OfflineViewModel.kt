@@ -1,10 +1,6 @@
-package com.tokastudio.music_offline.view.fragment
+package com.tokastudio.music_offline.ui.fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tokastudio.music_offline.model.CurrentPlayingSong
-import com.tokastudio.music_offline.model.Song
 
 class OfflineViewModel : ViewModel() {
 

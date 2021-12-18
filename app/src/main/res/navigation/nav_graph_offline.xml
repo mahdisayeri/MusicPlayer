@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_offline"
-    app:startDestination="@+id/homeFragment">
+    app:startDestination="@+id/offlineFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         tools:layout="@layout/home_fragment"
-        android:name="com.tokastudio.music_offline.view.fragment.HomeFragment"
+        android:name="com.tokastudio.music_offline.ui.fragment.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_offlineFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/offlineFragment"
         tools:layout="@layout/fragment_offline"
-        android:name="com.tokastudio.music_offline.view.fragment.OfflineFragment"
+        android:name="com.tokastudio.music_offline.ui.fragment.OfflineFragment"
         android:label="OfflineFragment" >
         <action
             android:id="@+id/action_offlineFragment_to_trackPlayingFragment"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/trackListFragment"
         tools:layout="@layout/fragment_track_list"
-        android:name="com.tokastudio.music_offline.view.fragment.TrackListFragment"
+        android:name="com.tokastudio.music_offline.ui.fragment.TrackListFragment"
         android:label="TrackListFragment" >
         <action
             android:id="@+id/action_trackListFragment_to_trackPlayingFragment"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/trackPlayingFragment"
         tools:layout="@layout/fragment_track_playing"
-        android:name="com.tokastudio.music_offline.view.fragment.TrackPlayingFragment"
+        android:name="com.tokastudio.music_offline.ui.fragment.TrackPlayingFragment"
         android:label="TrackPlayingFragment" >
         <argument
             android:name="position"
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
-        android:name="com.tokastudio.music_offline.view.fragment.offline.ArtistFragment"
+        android:name="com.tokastudio.music_offline.ui.fragment.offline.ArtistFragment"
         android:label="fragment_artist"
         tools:layout="@layout/fragment_artist" >
         <action

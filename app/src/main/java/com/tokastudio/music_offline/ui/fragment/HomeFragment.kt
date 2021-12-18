@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.fragment
+package com.tokastudio.music_offline.ui.fragment
 
 
 import android.content.Intent

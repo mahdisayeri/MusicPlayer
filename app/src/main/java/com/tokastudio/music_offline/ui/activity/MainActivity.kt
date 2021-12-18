@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.activity
+package com.tokastudio.music_offline.ui.activity
 
 import android.app.ActivityManager
 import android.content.*
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() ,ExitDialog.ExitDialogListener,RequestT
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= DataBindingUtil.setContentView(this,R.layout.activity_main)
-        binding.currentPlayingSongLayout.clickHandler= ClickHandler()
+        binding.clickHandler= ClickHandler()
 //       setContentView(R.layout.activity_main)
     //   fireBaseInstanceId()
 
@@ -66,11 +66,11 @@ class MainActivity : AppCompatActivity() ,ExitDialog.ExitDialogListener,RequestT
 
         viewModel.currentPlayingSong.observe(this, {
             currentPlayingSong = it
-            binding.currentPlayingSong = it.song
+            binding.track = it.song
             if (it.hideCurrentPlayingLayout){
-                binding.currentPlayingSongLayout.currentPlayingLayout.visibility= View.GONE
+                binding.currentPlayingLayout.visibility= View.GONE
             } else{
-                binding.currentPlayingSongLayout.currentPlayingLayout.visibility= View.VISIBLE
+                binding.currentPlayingLayout.visibility= View.VISIBLE
             }
         })
 

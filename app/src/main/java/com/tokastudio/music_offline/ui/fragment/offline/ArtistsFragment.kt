@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.fragment.offline
+package com.tokastudio.music_offline.ui.fragment.offline
 
 import android.os.Bundle
 
@@ -12,7 +12,7 @@ import com.tokastudio.music_offline.ListItemClickListener
 import com.tokastudio.music_offline.adapter.ArtistAdapter
 import com.tokastudio.music_offline.databinding.FragmentArtistsBinding
 import com.tokastudio.music_offline.model.Song
-import com.tokastudio.music_offline.view.fragment.OfflineFragmentDirections
+import com.tokastudio.music_offline.ui.fragment.OfflineFragmentDirections
 
 /**
  * A placeholder fragment containing a simple view.

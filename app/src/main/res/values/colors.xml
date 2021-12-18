@@ -6,9 +6,9 @@
 <!--    <color name="colorAccent">#F88937</color>-->
 
     <!-- navy_theme -->
-    <color name="colorPrimary">#29343a</color>
+    <color name="colorPrimary">#2E333A</color>
     <color name="colorPrimaryDark">#151a1e</color>
-    <color name="colorAccent">#01c8b5</color>
+    <color name="colorAccent">#1A75FC</color>
     <color name="colorBackGround">#232c31 </color>
     <color name="colorShadow">#90a4ad</color>
 

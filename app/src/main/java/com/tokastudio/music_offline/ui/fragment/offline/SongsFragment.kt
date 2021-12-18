@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.fragment.offline
+package com.tokastudio.music_offline.ui.fragment.offline
 
 import android.os.Bundle
 import android.util.Log
@@ -16,9 +16,8 @@ import com.tokastudio.music_offline.databinding.FragmentSongsBinding
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Song
 import com.tokastudio.music_offline.service.TrackService
-import com.tokastudio.music_offline.view.activity.SharedViewModel
-import com.tokastudio.music_offline.view.fragment.OfflineFragmentDirections
-import com.tokastudio.music_offline.view.fragment.OfflineViewModel
+import com.tokastudio.music_offline.ui.activity.SharedViewModel
+import com.tokastudio.music_offline.ui.fragment.OfflineFragmentDirections
 
 /**
  * A placeholder fragment containing a simple view.
@@ -118,7 +117,7 @@ class SongsFragment : Fragment(),ListItemClickListener {
         if (position!= null){
             val directions= trackList?.get(position)?.let { OfflineFragmentDirections.actionOfflineFragmentToTrackPlayingFragment(position, it) }
             if (directions != null) {
-                findNavController().navigate(directions)
+             //   findNavController().navigate(directions)
             }
         }
     }

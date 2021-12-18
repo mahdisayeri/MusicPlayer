@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline.view.fragment.offline
+package com.tokastudio.music_offline.ui.fragment.offline
 
 
 import androidx.fragment.app.Fragment
