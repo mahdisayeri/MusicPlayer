@@ -112,11 +112,11 @@ class HomeFragment : Fragment(){
     }
 
     private fun startTrackList(listName: String){
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTrackListFragment(listName))
+     //   findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTrackListFragment(listName))
     }
 
     private fun startOfflineFragment(){
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOfflineFragment())
+     //   findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOfflineFragment())
     }
 
     private fun loadNativeAd(){

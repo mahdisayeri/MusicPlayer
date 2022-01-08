@@ -22,7 +22,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 app:title="@string/app_name"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
+                style="@style/AppTheme.PopupOverlay"
                 app:menu="@menu/tracks_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -30,9 +30,9 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 style="@style/Widget.Design.TabLayout"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/colorAccent"
-                app:tabIndicatorColor="@color/colorAccent"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorAccent"
+                app:tabIndicatorColor="?attr/colorAccent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

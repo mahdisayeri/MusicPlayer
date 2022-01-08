@@ -3,7 +3,7 @@
     <data>
         <variable
             name="track"
-            type="com.tokastudio.music_offline.model.Song" />
+            type="com.tokastudio.music_offline.model.Track" />
     </data>
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"

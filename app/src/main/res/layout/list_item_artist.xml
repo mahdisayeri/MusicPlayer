@@ -8,7 +8,7 @@
             type="android.view.View.OnClickListener" />
        <variable
            name="listItem"
-           type="com.tokastudio.music_offline.model.Song" />
+           type="com.tokastudio.music_offline.model.Track" />
     </data>
 
     <LinearLayout
@@ -22,16 +22,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/image"
-            android:src="@drawable/music_placeholder2"
-            bind:loadCircleSongCover="@{listItem.songCover}"
-            android:layout_margin="5dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+        <com.google.android.material.card.MaterialCardView
+            bind:cardCornerRadius="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image"
+                android:src="@drawable/music_icon_placeholder"
+                bind:loadTrackCover="@{listItem.cover}"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+
 
         <LinearLayout
             android:orientation="vertical"
+            android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content">

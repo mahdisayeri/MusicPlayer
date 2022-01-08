@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <import type="android.view.View"/>
@@ -9,10 +12,10 @@
             type="android.view.View.OnClickListener" />
        <variable
            name="listItem"
-           type="com.tokastudio.music_offline.model.Song" />
+           type="com.tokastudio.music_offline.model.Track" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:clickable="true"
         android:focusable="true"
         bind:cardElevation="0dp"
@@ -21,6 +24,7 @@
         android:onClick="@{clickListener}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:orientation="horizontal"
             android:padding="5dp"
@@ -39,7 +43,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/image"
-                    android:src="@drawable/music_placeholder2"
+                    android:src="@drawable/music_icon_placeholder"
+                    bind:loadTrackCover="@{listItem.cover}"
                     android:layout_width="50dp"
                     android:layout_height="50dp" />
             </androidx.cardview.widget.CardView>
@@ -55,6 +60,7 @@
                     android:textDirection="ltr"
                     android:maxLines="1"
                     android:textStyle="bold"
+                    android:textColor="@{listItem.playing ? @color/color_blue : @color/white1}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -63,32 +69,25 @@
                     android:textDirection="ltr"
                     android:maxLines="1"
                     android:textSize="12sp"
+                    android:textColor="@{listItem.playing ? @color/color_blue : @color/white1}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-            <eu.gsottbauer.equalizerview.EqualizerView
-                android:id="@+id/equalizer"
-                android:visibility="@{listItem.playing ? View.VISIBLE : View.GONE,default= gone}"
-                bind:barColor="@color/colorAccent"
-                bind:barCount="5"
-                bind:animationDuration="2000"
-                bind:barWidth="2dp"
-                bind:runInBatterySaveMode="true"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
 
-            <ImageButton
-                android:visibility="gone"
-                android:onClick="@{clickListener}"
-                android:src="@{listItem.isPlaying ? @drawable/ic_round_pause_24 : @drawable/ic_round_play_arrow_24 , default= @drawable/ic_round_play_arrow_24}"
-                android:tint="@{listItem.isPlaying ? @color/colorAccent : @color/white1 , default= @color/white1}"
-                android:layout_margin="5dp"
-                android:backgroundTint="@android:color/transparent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <io.gresse.hugo.vumeterlibrary.VuMeterView
+                android:id="@+id/vuMeter"
+                android:visibility="@{listItem.playing ? View.VISIBLE : View.INVISIBLE , default= invisible}"
+                vumeter:vumeter_stopSize="5dp"
+                vumeter:vumeter_speed="4"
+                vumeter:vumeter_blockNumber="5"
+                vumeter:vumeter_blockSpacing="8dp"
+                vumeter:vumeter_backgroundColor="@color/color_blue"
+                vumeter:vumeter_startOff="false"
+                android:layout_width="15dp"
+                android:layout_height="18dp"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

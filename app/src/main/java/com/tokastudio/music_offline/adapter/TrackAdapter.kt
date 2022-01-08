@@ -1,47 +1,60 @@
 package com.tokastudio.music_offline.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.tokastudio.music_offline.R
-import com.tokastudio.music_offline.databinding.TrackListItemSimpleBinding
+import com.tokastudio.music_offline.ListItemClickListener
+import com.tokastudio.music_offline.databinding.ListItemTrackBinding
 import com.tokastudio.music_offline.model.Track
-import com.tokastudio.music_offline.adapter.TrackAdapter.MusicViewHolder
-import com.tokastudio.music_offline.model.Song
-import kotlin.collections.ArrayList
 
-class TrackAdapter internal constructor(context: Context?,private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<MusicViewHolder>() {
-    private var trackList= arrayListOf<Song>()
-    private val inflater: LayoutInflater= LayoutInflater.from(context)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
-        val binding: TrackListItemSimpleBinding = DataBindingUtil.inflate(inflater, R.layout.track_list_item_simple, parent, false)
-        return MusicViewHolder(binding)
+class TrackAdapter(private val listItemClickListener: ListItemClickListener) : RecyclerView.Adapter<TrackAdapter.MyViewHolder>() {
+
+    private var tracks: List<Track>? = null
+    private var playingPos: Int? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        return MyViewHolder(ListItemTrackBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        val item = trackList[position]
-        holder.itemSimpleBinding.track = item
-        holder.itemView.setOnClickListener(View.OnClickListener {
-            itemClickListener.onItemListClick(position)
-        })
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        tracks?.get(position)?.let { holder.bind(it, listItemClickListener) }
     }
 
     override fun getItemCount(): Int {
-        return trackList.size
+        return tracks?.size ?: 0
     }
 
-   internal fun setTrackList(tracks: ArrayList<Song>){
-        this.trackList=tracks
+    fun setTracks(tracks: List<Track>) {
+        this.tracks = tracks
         notifyDataSetChanged()
     }
 
-    inner class MusicViewHolder(val itemSimpleBinding: TrackListItemSimpleBinding) : RecyclerView.ViewHolder(itemSimpleBinding.root)
-
-    interface ItemClickListener{
-        fun onItemListClick(position: Int)
+    fun changePlayingTrack(pos: Int,isPlaying: Boolean){
+        if (playingPos != null) {
+            if (playingPos != pos) {
+                tracks?.get(playingPos!!)?.isPlaying = false
+                notifyItemChanged(playingPos!!)
+                tracks?.get(pos)?.isPlaying = true
+            }else{
+                tracks?.get(pos)?.isPlaying= isPlaying
+            }
+            notifyItemChanged(pos)
+        }
+        else {
+            playingPos = pos
+            tracks?.get(pos)?.isPlaying = true
+            notifyItemChanged(pos)
+        }
     }
 
+    inner class MyViewHolder(private val binding: ListItemTrackBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Track, listItemClickListener: ListItemClickListener) {
+            binding.listItem = item
+            if (item.isPlaying) playingPos = adapterPosition
+            binding.setClickListener {
+               // changePlayingTrack(adapterPosition)
+                listItemClickListener.onListItemClick(adapterPosition, item)
+            }
+        }
+    }
 }

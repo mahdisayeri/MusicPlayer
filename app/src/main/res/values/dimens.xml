@@ -5,4 +5,10 @@
     <dimen name="appbar_padding">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+
+    <dimen name="track_cover_large_width">300dp</dimen>
+    <dimen name="track_cover_small_width">180dp</dimen>
+
+    <dimen name="track_cover_large_height">300dp</dimen>
+    <dimen name="track_cover_small_height">180dp</dimen>
 </resources>

@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tokastudio.music_offline.ListItemClickListener
 import com.tokastudio.music_offline.databinding.ListItemArtistBinding
-import com.tokastudio.music_offline.model.Song
+import com.tokastudio.music_offline.model.Track
 
 class ArtistAdapter(private val listItemClickListener: ListItemClickListener): RecyclerView.Adapter<ArtistAdapter.MyViewHolder>() {
 
-    private var songs: List<List<Song>>?= null
+    private var tracks: List<List<Track>>?= null
    // private var playingPos: Int?= null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -17,20 +17,20 @@ class ArtistAdapter(private val listItemClickListener: ListItemClickListener): R
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        songs?.get(position)?.let { holder.bind(it, listItemClickListener) }
+        tracks?.get(position)?.let { holder.bind(it, listItemClickListener) }
     }
 
     override fun getItemCount(): Int {
-        return songs?.size ?: 0
+        return tracks?.size ?: 0
     }
 
-    fun setSongs(songs: List<List<Song>>){
-        this.songs= songs
+    fun setSongs(tracks: List<List<Track>>){
+        this.tracks= tracks
         notifyDataSetChanged()
     }
 
     inner class MyViewHolder(private val binding: ListItemArtistBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: List<Song>, listItemClickListener: ListItemClickListener){
+        fun bind(item: List<Track>, listItemClickListener: ListItemClickListener){
             binding.listItem= item[0]
 
             binding.setClickListener {

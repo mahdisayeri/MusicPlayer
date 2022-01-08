@@ -24,8 +24,8 @@ import androidx.core.app.NotificationCompat
 import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.R
 import com.tokastudio.music_offline.TrackControllerA
-import com.tokastudio.music_offline.model.Song
-import com.tokastudio.music_offline.ui.activity.MainActivity
+import com.tokastudio.music_offline.model.Track
+import com.tokastudio.music_offline.ui.MainActivity
 import java.io.IOException
 import java.util.*
 
@@ -36,7 +36,7 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
     companion object {
         private val TAG = TrackService::class.java.simpleName
     }
-    private var trackList: List<Song>?= null
+    private var trackList: List<Track>?= null
     private val binder: IBinder = LocalBinder()
     var mediaPlayer: MediaPlayer? = null
         private set
@@ -45,7 +45,7 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
     var currentPlayingList: String? =null
 
     private var notificationManager: NotificationManager? = null
-    var currentTrack: Song? = null
+    var currentTrack: Track? = null
         private set
     var currentPosition = 0
         private set
@@ -128,10 +128,10 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
         if (broadcastReceiver != null) unregisterReceiver(broadcastReceiver)
     }
 
-    private fun setupTrack(song: Song){
+    private fun setupTrack(track: Track){
        initialMediaPlayer()
-       if (song.inAssets){
-           val afd = song.data?.let { assets.openFd(it) }
+       if (track.inAssets){
+           val afd = track.data?.let { assets.openFd(it) }
            mediaPlayer?.apply {
                reset()
                if (afd != null) {
@@ -145,7 +145,7 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
            try {
                 mediaPlayer?.apply {
                     reset()
-                    setDataSource(song.data)
+                    setDataSource(track.data)
                     setOnPreparedListener(null)
                     prepare()
                     start()
@@ -174,18 +174,18 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
        }
     }
 
-    fun setTrackList(trackList: List<Song>){
+    fun setTrackList(trackList: List<Track>){
         this.trackList=trackList
     }
-    fun getTrackList(): List<Song>? {
+    fun getTrackList(): List<Track>? {
         return trackList
     }
 
-    private fun getTrackCover(song: Song): Bitmap? {
-        return if (song.inAssets){
-            song.data?.let { fetchAssetSongCover(it) }
+    private fun getTrackCover(track: Track): Bitmap? {
+        return if (track.inAssets){
+            track.data?.let { fetchAssetSongCover(it) }
         }else{
-            song.data?.let { fetchStorageSongCover(it) }
+            track.data?.let { fetchStorageSongCover(it) }
         }
 
     }
@@ -268,6 +268,7 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
                           , R.drawable.ic_pause, pos, it)
               }
           }
+          currentTrack?.isPlaying= true
           mediaPlayer?.start()
       }
     }
@@ -282,6 +283,7 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
                             , R.drawable.ic_play, currentPosition, it1)
                 }
             }
+            currentTrack?.isPlaying= false
             mediaPlayer!!.pause()
         }
     }
@@ -343,7 +345,7 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private fun createNotification(context: Context, track: Song, playBtn_raw_id: Int, pos: Int, size: Int) {
+    private fun createNotification(context: Context, track: Track, playBtn_raw_id: Int, pos: Int, size: Int) {
         //if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
         //  NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(context);
         val mediaSession = MediaSessionCompat(context, "tag")
