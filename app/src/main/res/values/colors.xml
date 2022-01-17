@@ -24,20 +24,23 @@
 
     <!-- DarkThemeColor -->
 
-    <color name="colorPrimary">#2E333A</color>
+    <color name="blue_grey_900">#2E333A</color>
     <color name="colorPrimaryDark">#151a1e</color>
-    <color name="color_blue">#1A75FC</color>
+    <color name="blue_a400">#1A75FC</color>
     <color name="colorBackGround">#232c31</color>
     <color name="colorShadow">#90a4ad</color>
 
-    <color name="colorPrimaryWhite">#384B55</color>
-    <color name="color_red">#E83C3C</color>
-    <color name="color_green">#058A3C</color>
+    <color name="blue_grey_800">#384B55</color>
+    <color name="red_600">#E83C3C</color>
+    <color name="teal_800">#058A3C</color>
 
-    <color name="white">#F2F2F2</color>
-    <color name="white1">#E3F2FD</color>
-    <color name="white2">#D5D2D2</color>
-    <color name="white3">#BFBDBD</color>
-    <color name="white4">#9A9898</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="grey_100">#F2F2F2</color>
+    <color name="grey_300">#D5D2D2</color>
+    <color name="grey_400">#BFBDBD</color>
+    <color name="grey_500">#9A9898</color>
+
+    <color name="blue_50">#E3F2FD</color>
 
 </resources>

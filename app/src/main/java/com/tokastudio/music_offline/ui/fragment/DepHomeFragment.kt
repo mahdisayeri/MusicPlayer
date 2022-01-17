@@ -13,7 +13,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -26,23 +25,21 @@ import com.tokastudio.music_offline.SharedPref
 import com.tokastudio.music_offline.databinding.HomeFragmentBinding
 import com.tokastudio.music_offline.dialog.RequestTrackDialog
 
-class HomeFragment : Fragment(){
+class DepHomeFragment : Fragment(){
     private lateinit var binding: HomeFragmentBinding
     private var nativeAd: UnifiedNativeAd?=null
     private lateinit var mInterstitialAd: InterstitialAd
     companion object {
-        private val TAG = HomeFragment::class.simpleName
-        fun newInstance() = HomeFragment()
+        private val TAG = DepHomeFragment::class.simpleName
+        fun newInstance() = DepHomeFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG,"onCreate")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Log.i(TAG,"onCreateView")
         binding=DataBindingUtil.inflate(inflater,R.layout.home_fragment,container,false)
         binding.clickHandler=ClickHandler()
         return binding.root
@@ -50,7 +47,6 @@ class HomeFragment : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.i(TAG,"onActivityCreated")
         loadNativeAd()
 
         mInterstitialAd = InterstitialAd(context)
@@ -64,17 +60,14 @@ class HomeFragment : Fragment(){
 
     override fun onStart() {
         super.onStart()
-        Log.i(TAG,"onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i(TAG,"onResume")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG,"onDestroy")
         nativeAd?.destroy()
 
     }
@@ -106,7 +99,6 @@ class HomeFragment : Fragment(){
         }
 
         fun requestTrack(view: View?) {
-            Log.i(TAG, "request track")
            activity?.supportFragmentManager?.let { RequestTrackDialog().show(it,"RequestTrackDialog") }
         }
     }

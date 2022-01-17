@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tokastudio.music_offline">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -13,15 +10,15 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/AppTheme.Dark">
+
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <!-- real     ca-app-pub-7955922263522030~9783698203 -->
-
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark"
-            android:label="@string/app_name"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />
@@ -45,7 +43,7 @@
         -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/color_blue" />
+            android:resource="@color/blue_a400" />
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
@@ -63,9 +61,10 @@
 
         <service android:name=".service.TrackService" />
     </application>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 </manifest>

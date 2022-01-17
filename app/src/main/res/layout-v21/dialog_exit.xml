@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
         <Button
             android:layout_margin="3dp"
-            android:backgroundTint="@color/colorPrimaryWhite"
+            android:backgroundTint="@color/blue_grey_800"
             android:id="@+id/cancel"
             android:text="@string/exit"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_margin="3dp"
             android:textColor="@android:color/white"
             android:id="@+id/exit"
-            android:backgroundTint="@color/color_red"
+            android:backgroundTint="@color/red_600"
             android:text="@string/exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -38,7 +38,7 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:id="@+id/rating"
-        android:backgroundTint="@color/color_green"
+        android:backgroundTint="@color/teal_800"
         android:paddingHorizontal="10dp"
         android:text="@string/message_support"
         android:layout_width="wrap_content"

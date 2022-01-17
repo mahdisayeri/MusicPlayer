@@ -130,7 +130,7 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
 
 
     private fun goToArtistFragment(tracks: List<Track>){
-       val directions= OfflineFragmentDirections.actionOfflineFragmentToArtistFragment(tracks.toTypedArray())
+       val directions= MainFragmentDirections.actionMainFragmentToArtistFragment(tracks.toTypedArray())
        findNavController().navigate(directions)
     }
 }

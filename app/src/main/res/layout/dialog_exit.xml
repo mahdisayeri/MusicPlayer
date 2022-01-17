@@ -35,7 +35,7 @@
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:id="@+id/rating"
-        android:background="@color/color_green"
+        android:background="@color/teal_800"
         android:paddingHorizontal="10dp"
         android:text="@string/message_support"
         android:layout_width="wrap_content"

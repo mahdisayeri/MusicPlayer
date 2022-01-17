@@ -36,7 +36,7 @@
             android:layout_marginBottom="8dp"
             android:onClick="@{(view) -> clickHandler.clickOnCurrentPlayingSong(view)}"
             android:background="@drawable/current_playing_song_background"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?attr/colorOnPrimary"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -90,7 +90,7 @@
             <ImageButton
                 android:id="@+id/skip_previous"
                 android:src="@drawable/ic_round_skip_previous_24"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:tint="?attr/colorPrimary"
                 android:onClick="@{(view) -> clickHandler.clickOnPreviousBtn(view)}"
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
             <ImageButton
                 android:id="@+id/playPauseBtn"
                 android:tint="?attr/colorPrimary"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:onClick="@{(view) -> clickHandler.clickOnPlayPauseBtn(view)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -108,7 +108,7 @@
             <ImageButton
                 android:id="@+id/skip_next"
                 android:src="@drawable/ic_round_skip_next_24"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:tint="?attr/colorPrimary"
                 android:layout_marginEnd="10dp"
                 android:onClick="@{(view) -> clickHandler.clickOnNextBtn(view)}"

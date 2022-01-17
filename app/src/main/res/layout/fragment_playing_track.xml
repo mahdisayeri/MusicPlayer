@@ -15,20 +15,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
     android:clickable="true"
     android:focusable="true">
-
+<!--    android:theme="@style/AppTheme.AppBarOverlay"-->
     <com.google.android.material.appbar.AppBarLayout
-        android:theme="@style/AppTheme.AppBarOverlay"
         app:elevation="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+<!--        style="@style/AppTheme.PopupOverlay"-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:menu="@menu/tracks_menu"
-            style="@style/AppTheme.PopupOverlay"
             app:navigationIcon="@drawable/ic_round_keyboard_arrow_down_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -156,7 +154,7 @@
 
                 <SeekBar
                     android:id="@+id/seekBar"
-                    android:progressBackgroundTint="@color/white1"
+                    android:progressBackgroundTint="@color/blue_50"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true" />
@@ -177,6 +175,8 @@
                     android:layout_below="@+id/seekBar"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_favorite"
+                    android:tint="?attr/colorOnPrimary"
+                    android:backgroundTint="?attr/colorPrimarySurface"
                     android:onClick="@{clickHandler::favBtn}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -211,7 +211,7 @@
                     android:background="@drawable/fav_background"
                     android:backgroundTint="?attr/colorAccent"
                     android:src="@drawable/ic_play"
-                    android:tint="@color/white1"
+                    android:tint="@color/blue_50"
                     android:onClick="@{clickHandler::playPauseBtn}" />
 
                 <ImageButton
@@ -220,6 +220,7 @@
                     android:layout_height="45dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_skip_previous"
+                    android:backgroundTint="?attr/colorPrimarySurface"
                     android:onClick="@{clickHandler::previousBtn}"
                     android:layout_toStartOf="@id/playPauseButton"
                     android:layout_marginEnd="20dp" />
@@ -230,6 +231,7 @@
                     android:layout_height="45dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_skip_next"
+                    android:backgroundTint="?attr/colorPrimarySurface"
                     android:onClick="@{clickHandler::nextBtn}"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/playPauseButton" />
@@ -240,6 +242,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_repeat_off"
+                    android:backgroundTint="?attr/colorPrimarySurface"
                     android:onClick="@{clickHandler::repeatBtn}"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/nextButton" />
@@ -250,6 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_shuffle_off"
+                    android:backgroundTint="?attr/colorPrimarySurface"
                     android:onClick="@{clickHandler::shuffleBtn}"
                     android:layout_marginEnd="20dp"
                     android:layout_toStartOf="@id/previousButton" />

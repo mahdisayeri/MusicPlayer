@@ -2,19 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation_offline"
-    app:startDestination="@+id/offlineFragment">
+    app:startDestination="@id/mainFragment"
+    android:id="@+id/nav_host_fragment">
 
     <fragment
-        android:id="@+id/offlineFragment"
-        tools:layout="@layout/fragment_offline"
-        android:name="com.tokastudio.music_offline.ui.fragment.OfflineFragment"
-        android:label="OfflineFragment" >
+        android:id="@+id/mainFragment"
+        tools:layout="@layout/fragment_main"
+        android:name="com.tokastudio.music_offline.ui.fragment.MainFragment"
+        android:label="MainFragment" >
         <action
-            android:id="@+id/action_offlineFragment_to_trackPlayingFragment"
+            android:id="@+id/action_mainFragment_to_trackPlayingFragment"
             app:destination="@id/trackPlayingFragment" />
         <action
-            android:id="@+id/action_offlineFragment_to_artistFragment"
+            android:id="@+id/action_mainFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
     </fragment>
     <fragment

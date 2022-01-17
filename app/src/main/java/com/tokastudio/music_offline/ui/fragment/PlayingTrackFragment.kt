@@ -97,7 +97,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i(TAG, "onCreate")
         currentPosition = args.position
         currentTrack = args.track
         requireActivity().registerReceiver(broadcastReceiver, IntentFilter(Constants.ACTION_SERVICE))
@@ -110,7 +109,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        Log.i(TAG, "onCreateView")
         // Inflate the layout for this fragment
         binding = FragmentPlayingTrackBinding.inflate(inflater, container, false).apply {
             toolbar.setNavigationOnClickListener {
@@ -146,7 +144,7 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
             onTrackPlay(currentPosition)
             onTrackUpdateUi(trackService?.currentTrack)
         }
-        view?.let { loadNativeAd(it) }
+    //    view?.let { loadNativeAd(it) }
         seekBarHandler()
     }
 
@@ -157,7 +155,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(TAG, "onDestroy")
         nativeAd?.destroy()
         requireActivity().unregisterReceiver(broadcastReceiver)
         requireActivity().unregisterReceiver(broadcastReceiverOnComplete)
@@ -166,7 +163,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
     inner class ClickHandler {
 
         fun favBtn(view: View?) {
-            Log.i(TAG, "fav")
             if (favorite) {
                 favorite = false
                 favListId.remove(trackService?.currentTrack?.id)
@@ -179,7 +175,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
         }
 
         fun shareBtn(view: View?) {
-            Log.i(TAG, "share")
             shareApp(trackService?.currentTrack?.data)
         }
 
@@ -254,7 +249,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
 
     override fun onTrackPlay(pos: Int) {
         if (trackService != null && trackService?.getTrackList()?.isNotEmpty() == true) {
-            Log.i(TAG, trackService?.getTrackList()?.size.toString())
             trackService!!.onTrackPlay(pos)
             onChangePlayPauseButton(true)
         }

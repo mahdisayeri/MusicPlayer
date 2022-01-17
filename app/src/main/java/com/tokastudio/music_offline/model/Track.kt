@@ -2,6 +2,7 @@ package com.tokastudio.music_offline.model
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
+import android.os.Handler
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -32,13 +33,14 @@ data class Track(
     private var cover: Bitmap?= null
 
     fun getCover(): Bitmap?{
-        if (cover!= null && data!= null)
-            return cover
-           val retriever = MediaMetadataRetriever()
-           retriever.setDataSource(this.data)
-           val coverBytes = retriever.embeddedPicture
-           cover= if (coverBytes != null) //se l'array di byte non è vuoto, crea una bitmap
-               BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
-        return cover
+//        if (cover!= null && !data.isNullOrEmpty())
+//            return cover
+//           val retriever = MediaMetadataRetriever()
+//           retriever.setDataSource(this.data)
+//           val coverBytes = retriever.embeddedPicture
+//           cover= if (coverBytes != null) //se l'array di byte non è vuoto, crea una bitmap
+//               BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
+//        return cover
+        return null
        }
 }

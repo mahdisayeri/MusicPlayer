@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.ListItemClickListener
 import com.tokastudio.music_offline.adapter.TrackAdapter
@@ -34,7 +36,6 @@ class TracksFragment : Fragment(), ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("logTest","onCreate TracksFragment")
 
         trackAdapter = TrackAdapter(this)
     }
@@ -43,15 +44,12 @@ class TracksFragment : Fragment(), ListItemClickListener {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        Log.d("logTest","onCreateView TracksFragment")
-
         binding = FragmentTracksBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("logTest","onViewCreated TracksFragment")
 
         mainViewModel.trackService.observe(viewLifecycleOwner, {
             trackService = it
@@ -64,6 +62,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
 
         binding.recyclerView.apply {
             adapter = trackAdapter
+//            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
         }
 
 //        pageViewModel.songs.observe(viewLifecycleOwner, {
@@ -103,7 +102,6 @@ class TracksFragment : Fragment(), ListItemClickListener {
 
     override fun onResume() {
         super.onResume()
-        Log.d("logTest","onResume TracksFragment")
     }
 
     companion object {

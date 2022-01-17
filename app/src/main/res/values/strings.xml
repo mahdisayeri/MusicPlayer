@@ -55,5 +55,7 @@
     <string name="share_message">Anthology of the best songs of Shadmehr Aghili download from Google Play</string>
     <string name="track_name">Track Name</string>
     <string name="favorite">Favorite</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

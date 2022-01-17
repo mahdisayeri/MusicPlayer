@@ -1,10 +1,6 @@
 package com.tokastudio.music_offline.ui.fragment
 
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tokastudio.music_offline.R
-import com.tokastudio.music_offline.databinding.FragmentOfflineBinding
+import com.tokastudio.music_offline.databinding.FragmentMainBinding
 
 private val TAB_TITLES = arrayOf(
         R.string.tab_title_favorites,
@@ -21,9 +17,9 @@ private val TAB_TITLES = arrayOf(
         R.string.tab_title_artists
 )
 
-class OfflineFragment : Fragment() {
+class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentOfflineBinding
+    private lateinit var binding: FragmentMainBinding
 //    private var permissionIsGranted= false
     private var viewPager: ViewPager2?= null
     private lateinit var sectionsPagerAdapter: SectionsPagerAdapter
@@ -31,8 +27,13 @@ class OfflineFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding= FragmentOfflineBinding.inflate(inflater, container, false)
+        binding= FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -153,7 +154,7 @@ class OfflineFragment : Fragment() {
         // TODO: Rename parameter arguments, choose names that match
         // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
         private const val ARG_PARAM1 = "param1"
-        private val TAG = OfflineFragment::class.java.simpleName
+        private val TAG = MainFragment::class.java.simpleName
 
         /**
          * Use this factory method to create a new instance of
@@ -165,7 +166,7 @@ class OfflineFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance()= OfflineFragment()
+        fun newInstance()= MainFragment()
 //        {
 //            val fragment = OfflineFragment()
 //            val args = Bundle()

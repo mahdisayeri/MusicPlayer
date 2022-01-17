@@ -4,11 +4,11 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:layout_margin="40dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/blue_grey_900"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
         <TextView
-            android:textColor="@color/white1"
+            android:textColor="@color/blue_50"
             android:gravity="center"
             android:padding="20dp"
             android:textSize="20sp"
@@ -18,16 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:textColorHint="@color/white3"
-            android:textColor="@color/white1"
+            android:textColorHint="@color/grey_400"
+            android:textColor="@color/blue_50"
             android:inputType="text"
             android:id="@+id/dialog_request_artist_name"
             android:hint="@string/enter_artistName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <EditText
-            android:textColorHint="@color/white3"
-            android:textColor="@color/white1"
+            android:textColorHint="@color/grey_400"
+            android:textColor="@color/blue_50"
             android:id="@+id/dialog_request_track_name"
             android:hint="@string/enter_trackName"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/dialog_request_cancel"
-                    android:backgroundTint="@color/colorPrimaryWhite"
+                    android:backgroundTint="@color/blue_grey_800"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:text="@string/"
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content" />
                 <Button
                     android:id="@+id/dialog_request_send_email"
-                    android:backgroundTint="@color/colorPrimaryWhite"
+                    android:backgroundTint="@color/blue_grey_800"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:text="@string/send_email"

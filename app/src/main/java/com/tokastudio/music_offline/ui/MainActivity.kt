@@ -25,10 +25,9 @@ import com.tokastudio.music_offline.dialog.RequestTrackDialog
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
-import com.tokastudio.music_offline.ui.fragment.OfflineFragment
 
 class MainActivity : AppCompatActivity(), TrackControllerB,
-        ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener,PermissionListener {
+        ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener, PermissionListener {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     private var boundService = false
     private var isTrackServiceRunning = false
     private var trackService: TrackService? = null
-    private var permissionIsGranted= false
+    private var permissionIsGranted = false
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection: ServiceConnection = object : ServiceConnection {
@@ -90,12 +89,16 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
             trackService = it
             if (it.isPlaying) {
                 it.currentTrack?.let { it1 -> CurrentPlayingSong(it.currentPosition, it1, false) }?.let { it2 -> viewModel.setCurrentSong(it2) }
+            } else if (currentPlayingSong != null) {
+                currentPlayingSong?.hideCurrentPlayingLayout = true
+                currentPlayingSong?.track?.isPlaying = false
+                viewModel.setCurrentSong(currentPlayingSong!!)
             }
         })
 
-        if (permissionIsGranted){
+        if (permissionIsGranted) {
             getSongs()
-        }else{
+        } else {
             checkPermission()
         }
 
@@ -107,9 +110,9 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         val trackServiceIntent = Intent(this, TrackService::class.java)
         if (isTrackServiceRunning) {
             bindService(trackServiceIntent, connection, Context.BIND_AUTO_CREATE)
-            Log.i(TAG, "bind Service")
+            Log.i("LogService", "bind Service")
         } else {
-            Log.i(TAG, "start Service")
+            Log.i("LogService", "start Service")
             startService(trackServiceIntent) //Starting the service
             bindService(trackServiceIntent, connection, Context.BIND_AUTO_CREATE)
         }
@@ -127,7 +130,6 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
 
     override fun onStop() {
         super.onStop()
-        Log.i(TAG, "onStop List")
         unbindService(connection)
         boundService = false
     }
@@ -246,7 +248,6 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     private fun sendEmail(artistName: String, trackName: String) {
-        Log.i("Send email", "")
         val to = Constants.EMAIL_ADDRESS
         val emailIntent = Intent(Intent.ACTION_SENDTO)
         emailIntent.data = Uri.parse("mailto:$to")
@@ -261,9 +262,9 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     override fun onTrackPrevious() {
-        trackService?.currentTrack?.isPlaying= false
+        trackService?.currentTrack?.isPlaying = false
         trackService?.onTrackPrevious()
-        trackService?.currentTrack?.isPlaying= true
+        trackService?.currentTrack?.isPlaying = true
         trackService?.currentPosition?.let { trackService?.currentTrack?.let { it1 -> CurrentPlayingSong(it, it1, false) } }?.let { viewModel.setCurrentSong(it) }
         onChangePlayPauseButton(true)
     }
@@ -271,21 +272,21 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     override fun onTrackPlay(pos: Int) {
         if (trackService != null && trackService?.getTrackList()?.isNotEmpty() == true) {
             trackService!!.onTrackPlay(pos)
-            trackService?.currentPosition?.let { trackService?.currentTrack?.let { it1 -> CurrentPlayingSong(it, it1,false) } }?.let { viewModel.setCurrentSong(it) }
-           // onChangePlayPauseButton(true)
+            trackService?.currentPosition?.let { trackService?.currentTrack?.let { it1 -> CurrentPlayingSong(it, it1, false) } }?.let { viewModel.setCurrentSong(it) }
+            // onChangePlayPauseButton(true)
         }
     }
 
     override fun onTrackPause() {
         trackService?.onTrackPause()
-        trackService?.currentPosition?.let { trackService?.currentTrack?.let { it1 -> CurrentPlayingSong(it, it1,false) } }?.let { viewModel.setCurrentSong(it) }
-      //  onChangePlayPauseButton(false)
+        trackService?.currentPosition?.let { trackService?.currentTrack?.let { it1 -> CurrentPlayingSong(it, it1, false) } }?.let { viewModel.setCurrentSong(it) }
+        //  onChangePlayPauseButton(false)
     }
 
     override fun onTrackNext() {
-        trackService?.currentTrack?.isPlaying= false
+        trackService?.currentTrack?.isPlaying = false
         trackService?.onTrackNext()
-        trackService?.currentTrack?.isPlaying= true
+        trackService?.currentTrack?.isPlaying = true
         trackService?.currentPosition?.let { trackService?.currentTrack?.let { it1 -> CurrentPlayingSong(it, it1, false) } }?.let { viewModel.setCurrentSong(it) }
         onChangePlayPauseButton(true)
     }
@@ -303,7 +304,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     override fun onTrackUpdateUi(track: Track?) {
-        binding.track= track
+        binding.track = track
         trackService?.isPlaying?.let { onChangePlayPauseButton(it) }
 //        if (track != null) {
 //            binding.track = track
@@ -317,70 +318,63 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
 //        }
     }
 
-    private fun getSongs(){
-        val list: MutableList<Track> = musicFiles()
-        viewModel.setTracks(list)
-//        setTabLayout(list as ArrayList<Track>)
+    private fun getSongs() {
+      //  val list: MutableList<Track> = musicFiles()
+      //  viewModel.setTracks(list)
     }
 
-    private fun musicFiles(): MutableList<Track>{
+    private fun musicFiles(): MutableList<Track> {
+        val startTime = System.currentTimeMillis()
         val list: MutableList<Track> = mutableListOf()
         val uri: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        val selection= MediaStore.Audio.Media.IS_MUSIC+ "!= 0"
-        val sortOrder= MediaStore.Audio.Media.TITLE + " ASC"
+        val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
+        val sortOrder = MediaStore.Audio.Media.TITLE + " ASC"
 
-        val cursor: Cursor?= this.contentResolver.query(
+        val cursor: Cursor? = this.contentResolver.query(
                 uri,
                 null,
                 selection,
                 null,
                 sortOrder)
-        if (cursor!= null && cursor.moveToFirst()){
-            val id:Int = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
-            val title:Int = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-            val trackNumber:Int = cursor.getColumnIndex(MediaStore.Audio.Media.TRACK)
-            val year:Int = cursor.getColumnIndex(MediaStore.Audio.Media.YEAR)
+        if (cursor != null && cursor.moveToFirst()) {
+            val id: Int = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
+            val title: Int = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
+            val trackNumber: Int = cursor.getColumnIndex(MediaStore.Audio.Media.TRACK)
+            val year: Int = cursor.getColumnIndex(MediaStore.Audio.Media.YEAR)
             val duration: Int = cursor.getColumnIndex("duration")
-            val data: Int= cursor.getColumnIndex("_data")
-            val dateModified:Int = cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED)
-            val albumId: Int= cursor.getColumnIndex("album_id")
-            val albumName:Int = cursor.getColumnIndex("album")
-            val artistId: Int= cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
-            val artistName: Int= cursor.getColumnIndex("artist")
-
-            for (col in cursor.columnNames){
-                Log.d("logMainActivity", "colName= $col")
-            }
+            val data: Int = cursor.getColumnIndex("_data")
+            val dateModified: Int = cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED)
+            val albumId: Int = cursor.getColumnIndex("album_id")
+            val albumName: Int = cursor.getColumnIndex("album")
+            val artistId: Int = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
+            val artistName: Int = cursor.getColumnIndex("artist")
 
             // Now loop through the music files
             do {
-                val audioId:Long = cursor.getLong(id)
-                val audioTitle:String = cursor.getString(title)
-                val audioTrackNumber:Int = cursor.getInt(trackNumber)
-                val audioYear:Int= cursor.getInt(year)
-                val audioDuration:Long= cursor.getLong(duration)
-                val audioData:String= cursor.getString(data)
-                val audioDateModified:Long= cursor.getLong(dateModified)
-                val audioAlbumId:Long= cursor.getLong(albumId)
-                val audioAlbumName:String= cursor.getString(albumName)
-                val audioArtistId:Long= cursor.getLong(artistId)
-                val audioArtistName:String= cursor.getString(artistName)
-
-                Log.d(TAG, "audioAlbum= $audioAlbumId")
-                Log.d(TAG, "audioAlbumId= $audioAlbumName")
-                Log.d(TAG, "audioAlbumArtist= $audioArtistName")
+                val audioId: Long = cursor.getLong(id)
+                val audioTitle: String = cursor.getString(title)
+                val audioTrackNumber: Int = cursor.getInt(trackNumber)
+                val audioYear: Int = cursor.getInt(year)
+                val audioDuration: Long = cursor.getLong(duration)
+                val audioData: String = cursor.getString(data)
+                val audioDateModified: Long = cursor.getLong(dateModified)
+                val audioAlbumId: Long = cursor.getLong(albumId)
+                val audioAlbumName: String = cursor.getString(albumName)
+                val audioArtistId: Long = cursor.getLong(artistId)
+                val audioArtistName: String = cursor.getString(artistName)
 
                 // Add the current music to the list
                 list.add(Track(audioId, audioTitle, audioTrackNumber, audioYear,
                         audioDuration, audioData, audioDateModified, audioAlbumId,
-                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false,false))
-            }while (cursor.moveToNext())
+                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false))
+            } while (cursor.moveToNext())
         }
         cursor?.close()
+        println("timeInterval= " + (System.currentTimeMillis() - startTime))
         return list
     }
 
-    private fun checkPermission(){
+    private fun checkPermission() {
         TedPermission.with(this)
                 .setPermissionListener(this)
                 .setDeniedMessage("If you reject permission,you can not use this service \n\n Please turn on permissions at Setting => Permission")
@@ -389,12 +383,12 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     override fun onPermissionGranted() {
-        permissionIsGranted= true
+        permissionIsGranted = true
         getSongs()
     }
 
     override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-        permissionIsGranted= false
+        permissionIsGranted = false
         Toast.makeText(this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
     }
 }

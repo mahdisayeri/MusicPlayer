@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:vumeter="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:vumeter="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
@@ -19,22 +18,19 @@
         android:clickable="true"
         android:focusable="true"
         bind:cardElevation="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="5dp"
+        bind:cardCornerRadius="0dp"
         android:onClick="@{clickListener}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:paddingStart="15dp"
+            android:paddingEnd="5dp"
+            android:paddingVertical="5dp"
             android:orientation="horizontal"
-            android:padding="5dp"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <!--        android:background="@{listItem.isPlaying ? @color/colorBackGround : @color/colorPrimary , default= @color/colorPrimary}"-->
-
-            <!--        bind:loadSquareSongCover="@{listItem.songCover}"-->
 
             <androidx.cardview.widget.CardView
                 bind:cardCornerRadius="8dp"
@@ -45,11 +41,12 @@
                     android:id="@+id/image"
                     android:src="@drawable/music_icon_placeholder"
                     bind:loadTrackCover="@{listItem.cover}"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
+                    android:layout_width="44dp"
+                    android:layout_height="44dp" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
+                android:layout_marginHorizontal="10dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -60,7 +57,7 @@
                     android:textDirection="ltr"
                     android:maxLines="1"
                     android:textStyle="bold"
-                    android:textColor="@{listItem.playing ? @color/color_blue : @color/white1}"
+                    android:textColor="@{listItem.playing ? @color/blue_a400 : @color/blue_50}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -69,7 +66,7 @@
                     android:textDirection="ltr"
                     android:maxLines="1"
                     android:textSize="12sp"
-                    android:textColor="@{listItem.playing ? @color/color_blue : @color/white1}"
+                    android:textColor="@{listItem.playing ? @color/blue_a400 : @color/blue_50}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -78,16 +75,15 @@
 
             <io.gresse.hugo.vumeterlibrary.VuMeterView
                 android:id="@+id/vuMeter"
-                android:visibility="@{listItem.playing ? View.VISIBLE : View.INVISIBLE , default= invisible}"
+                android:visibility="@{listItem.playing ? View.VISIBLE : View.GONE , default= gone}"
                 vumeter:vumeter_stopSize="5dp"
                 vumeter:vumeter_speed="4"
                 vumeter:vumeter_blockNumber="5"
                 vumeter:vumeter_blockSpacing="8dp"
-                vumeter:vumeter_backgroundColor="@color/color_blue"
+                vumeter:vumeter_backgroundColor="@color/blue_a400"
                 vumeter:vumeter_startOff="false"
                 android:layout_width="15dp"
                 android:layout_height="18dp"/>
-
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

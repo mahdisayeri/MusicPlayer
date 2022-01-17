@@ -4,7 +4,7 @@
     <data>
         <variable
             name="clickHandler"
-            type="com.tokastudio.music_offline.ui.fragment.HomeFragment.ClickHandler" />
+            type="com.tokastudio.music_offline.ui.fragment.DepHomeFragment.ClickHandler" />
     </data>
         <LinearLayout
             android:paddingBottom="50dp"
@@ -21,7 +21,7 @@
                 android:layout_marginBottom="30dp"
                 android:src="@drawable/ic_launcher"
                 app:civ_border_width="2dp"
-                app:civ_border_color="@color/white2" />
+                app:civ_border_color="@color/grey_300" />
 
             <RelativeLayout
                 android:onClick="@{clickHandler::allTracks}"
@@ -42,7 +42,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textSize="20sp"
-                    android:textColor="@color/white2"
+                    android:textColor="@color/grey_300"
                     android:text="@string/musics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -68,7 +68,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textSize="20sp"
-                    android:textColor="@color/white2"
+                    android:textColor="@color/grey_300"
                     android:text="@string/offline_musics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -94,7 +94,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textSize="22sp"
-                    android:textColor="@color/white2"
+                    android:textColor="@color/grey_300"
                     android:text="@string/favorites"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -123,7 +123,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textSize="22sp"
-                    android:textColor="@color/white2"
+                    android:textColor="@color/grey_300"
                     android:text="@string/other_apps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -149,7 +149,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:textSize="22sp"
-                    android:textColor="@color/white2"
+                    android:textColor="@color/grey_300"
                     android:text="@string/request_track"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">

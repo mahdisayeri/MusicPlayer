@@ -34,7 +34,6 @@ class FavoritesFragment : Fragment(),ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("logTest","onCreate FavoritesFragment")
 
         trackAdapter = TrackAdapter(this)
     }
@@ -47,6 +46,9 @@ class FavoritesFragment : Fragment(),ListItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
 
         mainViewModel.trackService.observe(viewLifecycleOwner, {

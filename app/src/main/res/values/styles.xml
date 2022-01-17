@@ -1,32 +1,31 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/color_blue</item>
-        <item name="android:backgroundTint">@color/colorPrimary</item>
-    </style>
-
     <style name="AppTheme.Light">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimary</item>
-        <item name="colorAccent">@color/color_blue</item>
-        <item name="android:backgroundTint">@color/white1</item>
+        <item name="colorPrimary">@color/grey_100</item>
+        <item name="colorPrimaryVariant">@color/grey_100</item>
+        <item name="colorAccent">@color/blue_a400</item>
+<!--        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->
     </style>
 
-    
+    <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/blue_grey_900</item>
+        <item name="colorOnPrimary">@color/grey_100</item>
+
+        <item name="colorPrimaryVariant">@color/blue_grey_900</item>
+        <item name="colorAccent">@color/blue_a400</item>
+<!--        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 
     <style name="AppTheme.AdAttribution">
         <item name="android:layout_width">wrap_content</item>

@@ -11,7 +11,7 @@
         android:layout_height="75dp">
     <RelativeLayout
         android:gravity="center"
-        android:background="@color/colorPrimary"
+        android:background="@color/blue_grey_900"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView

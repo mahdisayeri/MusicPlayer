@@ -31,13 +31,13 @@
                 android:layout_height="match_parent">
                 <TextView
                     android:id="@+id/ad_headLine"
-                    android:textColor="@color/white1"
+                    android:textColor="@color/blue_50"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:textColor="@color/white2"
+                    android:textColor="@color/grey_300"
                     android:id="@+id/ad_body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
