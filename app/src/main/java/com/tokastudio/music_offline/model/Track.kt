@@ -1,8 +1,5 @@
 package com.tokastudio.music_offline.model
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
-import android.os.Handler
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -10,7 +7,7 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity(tableName = "tracks")
+//@Entity(tableName = "tracks")
 @Parcelize
 data class Track(
         @ColumnInfo(name = "id") @PrimaryKey val id: Long,
@@ -27,12 +24,14 @@ data class Track(
         val lyric: String? = null,
         var isPlaying: Boolean,
         var inAssets: Boolean,
+        var cover: Bitmap?= null
 ): Parcelable{
 
-    @Ignore
-    private var cover: Bitmap?= null
+//    @Ignore
+//    private var cover: Bitmap?= null
 
-    fun getCover(): Bitmap?{
+//    fun getCover(): Bitmap?{
+//        Log.d("logCover",title.toString())
 //        if (cover!= null && !data.isNullOrEmpty())
 //            return cover
 //           val retriever = MediaMetadataRetriever()
@@ -41,6 +40,6 @@ data class Track(
 //           cover= if (coverBytes != null) //se l'array di byte non è vuoto, crea una bitmap
 //               BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
 //        return cover
-        return null
-       }
+//        return null
+//       }
 }

@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-@Database(entities = [Track::class],version = 1,exportSchema = false)
+//@Database(entities = [Track::class],version = 1,exportSchema = false)
 abstract class MyDataBase : RoomDatabase() {
 
     abstract fun trackDao() : TrackDao

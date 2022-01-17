@@ -51,33 +51,6 @@ class TracksFragment : Fragment(), ListItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.trackService.observe(viewLifecycleOwner, {
-            trackService = it
-        })
-
-//        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER).toString() ?: "1")
-//            arguments?.getParcelableArrayList<Track>(ARG_SONGS)?.let { setSongs(it) }
-//        }
-
-        binding.recyclerView.apply {
-            adapter = trackAdapter
-//            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
-        }
-
-//        pageViewModel.songs.observe(viewLifecycleOwner, {
-//            if (!it.isNullOrEmpty()) {
-//                pageViewModel.sectionNumber.observe(viewLifecycleOwner, { it1 ->
-//                    if (!it1.isNullOrEmpty()) {
-//                        if (it1 == "2") {
-//                            trackList = it as ArrayList<Track>?
-//                            trackAdapter.setTracks(it)
-//                        }
-//                    }
-//                })
-//            }
-//        })
-
         mainViewModel.tracks.observe(viewLifecycleOwner,{
             if (!it.isNullOrEmpty()){
                 trackList = it as ArrayList<Track>?
@@ -85,23 +58,22 @@ class TracksFragment : Fragment(), ListItemClickListener {
             }
         })
 
+        mainViewModel.trackService.observe(viewLifecycleOwner, {
+            trackService = it
+        })
+
+        binding.recyclerView.apply {
+            adapter = trackAdapter
+//            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
+        }
 
         mainViewModel.currentPlayingSong.observe(viewLifecycleOwner, {
             val index = trackList?.indexOf(it.track)
             if (index != null && index != -1) {
-             //   val audioSessionID= trackService?.mediaPlayer?.audioSessionId
-                //if (audioSessionID != -1&& audioSessionID!= null ){
                     trackAdapter.changePlayingTrack(index,it.track.isPlaying)
-             //   }
-
-
             }
         })
 
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     companion object {
@@ -120,14 +92,6 @@ class TracksFragment : Fragment(), ListItemClickListener {
          */
         @JvmStatic
         fun newInstance()= TracksFragment()
-//        {
-//            return TracksFragment().apply {
-//                arguments = Bundle().apply {
-//                    putInt(ARG_SECTION_NUMBER, sectionNumber)
-//                    putParcelableArrayList(ARG_SONGS, tracks)
-//                }
-//            }
-//        }
     }
 
     override fun onListItemClick(position: Int, item: Any) {

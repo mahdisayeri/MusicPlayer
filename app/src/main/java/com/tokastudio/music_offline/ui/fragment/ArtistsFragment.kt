@@ -45,10 +45,6 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
     }
 
     private fun loadArtists(){
-//        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER).toString() ?: "1")
-//            arguments?.getParcelableArrayList<Track>(ARG_SONGS)?.let { setSongs(it) }
-//        }
 
         binding.recyclerViewArtists.apply {
             adapter= artistAdapter
@@ -59,20 +55,6 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
                     fetchArtist(it)
             }
         })
-
-//        pageViewModel.songs.observe(viewLifecycleOwner, {
-//            if (!it.isNullOrEmpty()) {
-//                pageViewModel.sectionNumber.observe(viewLifecycleOwner, { it1 ->
-//                    if (!it1.isNullOrEmpty()) {
-//                        if (it1 == "3") {
-//                            fetchArtist(it)
-//                            // trackList= it as ArrayList<Song>?
-//                            // artistAdapter.setSongs(it)
-//                        }
-//                    }
-//                })
-//            }
-//        })
     }
 
     private fun fetchArtist(tracks: List<Track>){
@@ -113,14 +95,6 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
          */
         @JvmStatic
         fun newInstance()= ArtistsFragment()
-//        {
-//            return ArtistsFragment().apply {
-//                arguments = Bundle().apply {
-//                    putInt(ARG_SECTION_NUMBER, sectionNumber)
-//                    putParcelableArrayList(ARG_SONGS, tracks)
-//                }
-//            }
-//        }
     }
 
     override fun onListItemClick(position: Int, item: Any) {

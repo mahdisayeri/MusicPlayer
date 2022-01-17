@@ -3,6 +3,9 @@ package com.tokastudio.music_offline.ui
 import android.app.ActivityManager
 import android.content.*
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -188,54 +191,54 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     override fun onRatingBrnClick(dialog: ExitDialog?) {
-        openAppRating(this)
+        // openAppRating(this)
         dialog!!.dismiss()
     }
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
-        fun openAppRating(context: Context) {
-            // you can also use BuildConfig.APPLICATION_ID
-            val appId = BuildConfig.APPLICATION_ID
-            val rateIntent = Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=$appId"))
-            var marketFound = false
-
-            // find all applications able to handle our rateIntent
-            val otherApps = context.packageManager
-                    .queryIntentActivities(rateIntent, 0)
-            for (otherApp in otherApps) {
-                // look for Google Play application
-                if (otherApp.activityInfo.applicationInfo.packageName
-                        == "com.android.vending") {
-                    val otherAppActivity = otherApp.activityInfo
-                    val componentName = ComponentName(
-                            otherAppActivity.applicationInfo.packageName,
-                            otherAppActivity.name
-                    )
-                    // make sure it does NOT open in the stack of your activity
-                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    // task reparenting if needed
-                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-                    // if the Google Play was already open in a search result
-                    //  this make sure it still go to the app page you requested
-                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    // this make sure only the Google Play app is allowed to
-                    // intercept the intent
-                    rateIntent.component = componentName
-                    context.startActivity(rateIntent)
-                    marketFound = true
-                    break
-                }
-            }
-
-            // if GP not present on device, open web browser
-            if (!marketFound) {
-                val webIntent = Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=$appId"))
-                context.startActivity(webIntent)
-            }
-        }
+//        fun openAppRating(context: Context) {
+//            // you can also use BuildConfig.APPLICATION_ID
+//            val appId = BuildConfig.APPLICATION_ID
+//            val rateIntent = Intent(Intent.ACTION_VIEW,
+//                    Uri.parse("market://details?id=$appId"))
+//            var marketFound = false
+//
+//            // find all applications able to handle our rateIntent
+//            val otherApps = context.packageManager
+//                    .queryIntentActivities(rateIntent, 0)
+//            for (otherApp in otherApps) {
+//                // look for Google Play application
+//                if (otherApp.activityInfo.applicationInfo.packageName
+//                        == "com.android.vending") {
+//                    val otherAppActivity = otherApp.activityInfo
+//                    val componentName = ComponentName(
+//                            otherAppActivity.applicationInfo.packageName,
+//                            otherAppActivity.name
+//                    )
+//                    // make sure it does NOT open in the stack of your activity
+//                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    // task reparenting if needed
+//                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+//                    // if the Google Play was already open in a search result
+//                    //  this make sure it still go to the app page you requested
+//                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                    // this make sure only the Google Play app is allowed to
+//                    // intercept the intent
+//                    rateIntent.component = componentName
+//                    context.startActivity(rateIntent)
+//                    marketFound = true
+//                    break
+//                }
+//            }
+//
+//            // if GP not present on device, open web browser
+//            if (!marketFound) {
+//                val webIntent = Intent(Intent.ACTION_VIEW,
+//                        Uri.parse("https://play.google.com/store/apps/details?id=$appId"))
+//                context.startActivity(webIntent)
+//            }
+//        }
     }
 
     override fun onSendBtnClick(dialog: DialogFragment, artistName: String, trackName: String) {
@@ -306,25 +309,16 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     override fun onTrackUpdateUi(track: Track?) {
         binding.track = track
         trackService?.isPlaying?.let { onChangePlayPauseButton(it) }
-//        if (track != null) {
-//            binding.track = track
-//            val trackCover = BitmapDrawable(resources, trackService?.currentTrackCover)
-//            val uri: Uri? = null
-//            Picasso.get()
-//                    .load(uri)
-//                    .fit()
-//                    .placeholder(trackCover)
-//                    .into(binding.trackCover)
-//        }
     }
 
     private fun getSongs() {
-      //  val list: MutableList<Track> = musicFiles()
-      //  viewModel.setTracks(list)
+        val list: MutableList<Track> = musicFiles()
+        viewModel.setTracks(list)
     }
 
     private fun musicFiles(): MutableList<Track> {
         val startTime = System.currentTimeMillis()
+
         val list: MutableList<Track> = mutableListOf()
         val uri: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
@@ -364,14 +358,26 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
                 val audioArtistName: String = cursor.getString(artistName)
 
                 // Add the current music to the list
+                val cover= fetchCover(audioData)
+
                 list.add(Track(audioId, audioTitle, audioTrackNumber, audioYear,
                         audioDuration, audioData, audioDateModified, audioAlbumId,
-                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false))
+                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false,cover))
             } while (cursor.moveToNext())
         }
         cursor?.close()
         println("timeInterval= " + (System.currentTimeMillis() - startTime))
         return list
+    }
+
+    private fun fetchCover(data: String): Bitmap? {
+//        if (cover!= null && !data.isNullOrEmpty())
+//            return cover
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(data)
+        val coverBytes = retriever.embeddedPicture
+        return if (coverBytes != null)
+            BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
     }
 
     private fun checkPermission() {
