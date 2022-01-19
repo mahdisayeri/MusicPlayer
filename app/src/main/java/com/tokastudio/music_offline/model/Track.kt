@@ -1,8 +1,8 @@
 package com.tokastudio.music_offline.model
-import android.graphics.Bitmap
+
+import android.media.MediaMetadataRetriever
 import android.os.Parcelable
 import androidx.room.ColumnInfo
-import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
@@ -23,23 +23,24 @@ data class Track(
         val artistName: String? = null,
         val lyric: String? = null,
         var isPlaying: Boolean,
-        var inAssets: Boolean,
-        var cover: Bitmap?= null
-): Parcelable{
+        var inAssets: Boolean
+) : Parcelable {
 
-//    @Ignore
-//    private var cover: Bitmap?= null
+    @Ignore
+    private var cover: ByteArray? = null
+//    fun getCover(): Uri {
+//        val sArtworkUri: Uri = Uri
+//                .parse("content://media/external/audio/albumart")
+//        return ContentUris.withAppendedId(sArtworkUri,albumId)
+//    }
 
-//    fun getCover(): Bitmap?{
-//        Log.d("logCover",title.toString())
-//        if (cover!= null && !data.isNullOrEmpty())
-//            return cover
-//           val retriever = MediaMetadataRetriever()
-//           retriever.setDataSource(this.data)
-//           val coverBytes = retriever.embeddedPicture
-//           cover= if (coverBytes != null) //se l'array di byte non è vuoto, crea una bitmap
-//               BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
-//        return cover
-//        return null
-//       }
+    fun getCover(): ByteArray? {
+        return if (cover != null || data.isNullOrEmpty()){
+            cover
+        }else{
+            val retriever = MediaMetadataRetriever()
+            retriever.setDataSource(this.data)
+            retriever.embeddedPicture
+        }
+    }
 }

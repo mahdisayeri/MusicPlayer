@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.clickHandler = ClickHandler()
+
         //   fireBaseInstanceId()
 
         isTrackServiceRunning = isMyServiceRunning(TrackService::class.java)
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         }
         SharedPref.setPref(this, Constants.VERSION_CODE, BuildConfig.VERSION_CODE)
 
+       // setDestinationChangeListener()
 
         viewModel.currentPlayingSong.observe(this, {
             var isNewTrack = false
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         } else {
             checkPermission()
         }
-
+        binding.clickHandler = ClickHandler()
     }
 
     override fun onStart() {
@@ -155,8 +157,8 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     inner class ClickHandler {
         fun clickOnCurrentPlayingSong(view: View) {
             if (currentPlayingSong != null) {
-                val bundle = bundleOf("position" to currentPlayingSong?.position, "track" to currentPlayingSong?.track)
-                findNavController(this@MainActivity, R.id.nav_host_fragment).navigate(R.id.action_global_trackPlayingFragment, bundle)
+                // val bundle = bundleOf("position" to currentPlayingSong?.position, "track" to currentPlayingSong?.track)
+                findNavController(this@MainActivity, R.id.nav_host_fragment).navigate(R.id.action_global_trackPlayingFragment) // ,bundle
             }
         }
 
@@ -317,12 +319,15 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     private fun musicFiles(): MutableList<Track> {
-        val startTime = System.currentTimeMillis()
-
         val list: MutableList<Track> = mutableListOf()
         val uri: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
         val sortOrder = MediaStore.Audio.Media.TITLE + " ASC"
+
+        Log.d("logTest", "uri=$uri")
+        Log.d("logTest", "selection= $selection")
+        Log.d("logTest", "sortorder= $sortOrder")
+
 
         val cursor: Cursor? = this.contentResolver.query(
                 uri,
@@ -358,15 +363,13 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
                 val audioArtistName: String = cursor.getString(artistName)
 
                 // Add the current music to the list
-                val cover= fetchCover(audioData)
 
                 list.add(Track(audioId, audioTitle, audioTrackNumber, audioYear,
                         audioDuration, audioData, audioDateModified, audioAlbumId,
-                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false,cover))
+                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false))
             } while (cursor.moveToNext())
         }
         cursor?.close()
-        println("timeInterval= " + (System.currentTimeMillis() - startTime))
         return list
     }
 
@@ -397,4 +400,14 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         permissionIsGranted = false
         Toast.makeText(this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
     }
+
+//    private fun setDestinationChangeListener() {
+//        val navController: NavController = findNavController(this@MainActivity, R.id.nav_host_fragment)
+//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+//            when (destination.id) {
+//                R.id.trackPlayingFragment -> binding.currentPlayingLayout.visibility = View.GONE
+//                else -> binding.currentPlayingLayout.visibility = View.GONE
+//            }
+//        }
+//    }
 }

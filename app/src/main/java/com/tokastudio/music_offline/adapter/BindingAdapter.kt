@@ -3,6 +3,7 @@ package com.tokastudio.music_offline.adapter
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -26,13 +27,9 @@ fun convertDuration(view: TextView, duration: Long){
 }
 
 @BindingAdapter("bind:loadTrackCover")
-fun loadTrackCover(view: ImageView, songCover: Bitmap?){
-    var trackCover: BitmapDrawable?= null
-    if (songCover!= null){
-        trackCover = BitmapDrawable(view.context.resources, songCover)
-    }
+fun loadTrackCover(view: ImageView, songCover: ByteArray?){
     Glide.with(view.context)
-            .load(trackCover)
+            .load(songCover)
             .fitCenter()
             .placeholder(R.drawable.music_icon_placeholder)
             .into(view)

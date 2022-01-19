@@ -20,7 +20,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
@@ -48,7 +47,7 @@ import java.util.concurrent.TimeUnit
 class PlayingTrackFragment : Fragment(), TrackControllerB {
     private lateinit var binding: FragmentPlayingTrackBinding
     private val mainViewModel: MainViewModel by activityViewModels()
-    private val args: PlayingTrackFragmentArgs by navArgs()
+   // private val args: PlayingTrackFragmentArgs by navArgs()
     private var trackService: TrackService? = null
     private var currentPosition = 0
     private var currentTrack: Track? = null
@@ -97,14 +96,13 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        currentPosition = args.position
-        currentTrack = args.track
+//        currentPosition = args.position
+//        currentTrack = args.track
         requireActivity().registerReceiver(broadcastReceiver, IntentFilter(Constants.ACTION_SERVICE))
         requireActivity().registerReceiver(broadcastReceiverOnComplete, IntentFilter("onTrackCompletion"))
         favListId = getPrefFav(requireActivity())
         Log.i("favlist", favListId.size.toString())
 
-        mainViewModel.setCurrentSong(CurrentPlayingSong(args.position, args.track, true))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -121,10 +119,22 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner,{
+//            if (it!= null){
+//                currentPosition= it.position
+//                currentTrack= it.track
+//            }
+//        })
         mainViewModel.trackService.observe(viewLifecycleOwner, {
             trackService = it
+            currentTrack= it.currentTrack
+            currentPosition= it.currentPosition
+            it.currentTrack?.let { it1 -> CurrentPlayingSong(it.currentPosition, it1, true) }?.let { it2 -> mainViewModel.setCurrentSong(it2) }
             start()
         })
+
+
     }
 
     private fun start() {
