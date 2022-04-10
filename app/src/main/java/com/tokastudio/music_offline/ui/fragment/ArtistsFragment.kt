@@ -1,6 +1,7 @@
 package com.tokastudio.music_offline.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,8 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("logLoad","ArtistsOnCreate")
+
         artistAdapter= ArtistAdapter(this)
     }
 
@@ -35,12 +38,14 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        Log.d("logLoad","ArtistsonCreateView")
         binding= FragmentArtistsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("logLoad","ArtistsonViewCreated")
         loadArtists()
     }
 

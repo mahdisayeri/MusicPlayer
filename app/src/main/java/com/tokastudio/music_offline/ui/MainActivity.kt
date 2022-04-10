@@ -31,7 +31,7 @@ import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
 
 class MainActivity : AppCompatActivity(), TrackControllerB,
-        ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener, PermissionListener {
+        ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     private var boundService = false
     private var isTrackServiceRunning = false
     private var trackService: TrackService? = null
-    private var permissionIsGranted = false
+//    private var permissionIsGranted = false
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection: ServiceConnection = object : ServiceConnection {
@@ -100,12 +100,6 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
                 viewModel.setCurrentSong(currentPlayingSong!!)
             }
         })
-
-        if (permissionIsGranted) {
-            getSongs()
-        } else {
-            checkPermission()
-        }
         binding.clickHandler = ClickHandler()
     }
 
@@ -312,102 +306,4 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         binding.track = track
         trackService?.isPlaying?.let { onChangePlayPauseButton(it) }
     }
-
-    private fun getSongs() {
-        val list: MutableList<Track> = musicFiles()
-        viewModel.setTracks(list)
-    }
-
-    private fun musicFiles(): MutableList<Track> {
-        val list: MutableList<Track> = mutableListOf()
-        val uri: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
-        val sortOrder = MediaStore.Audio.Media.TITLE + " ASC"
-
-        Log.d("logTest", "uri=$uri")
-        Log.d("logTest", "selection= $selection")
-        Log.d("logTest", "sortorder= $sortOrder")
-
-
-        val cursor: Cursor? = this.contentResolver.query(
-                uri,
-                null,
-                selection,
-                null,
-                sortOrder)
-        if (cursor != null && cursor.moveToFirst()) {
-            val id: Int = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
-            val title: Int = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-            val trackNumber: Int = cursor.getColumnIndex(MediaStore.Audio.Media.TRACK)
-            val year: Int = cursor.getColumnIndex(MediaStore.Audio.Media.YEAR)
-            val duration: Int = cursor.getColumnIndex("duration")
-            val data: Int = cursor.getColumnIndex("_data")
-            val dateModified: Int = cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED)
-            val albumId: Int = cursor.getColumnIndex("album_id")
-            val albumName: Int = cursor.getColumnIndex("album")
-            val artistId: Int = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
-            val artistName: Int = cursor.getColumnIndex("artist")
-
-            // Now loop through the music files
-            do {
-                val audioId: Long = cursor.getLong(id)
-                val audioTitle: String = cursor.getString(title)
-                val audioTrackNumber: Int = cursor.getInt(trackNumber)
-                val audioYear: Int = cursor.getInt(year)
-                val audioDuration: Long = cursor.getLong(duration)
-                val audioData: String = cursor.getString(data)
-                val audioDateModified: Long = cursor.getLong(dateModified)
-                val audioAlbumId: Long = cursor.getLong(albumId)
-                val audioAlbumName: String = cursor.getString(albumName)
-                val audioArtistId: Long = cursor.getLong(artistId)
-                val audioArtistName: String = cursor.getString(artistName)
-
-                // Add the current music to the list
-
-                list.add(Track(audioId, audioTitle, audioTrackNumber, audioYear,
-                        audioDuration, audioData, audioDateModified, audioAlbumId,
-                        audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false))
-            } while (cursor.moveToNext())
-        }
-        cursor?.close()
-        return list
-    }
-
-    private fun fetchCover(data: String): Bitmap? {
-//        if (cover!= null && !data.isNullOrEmpty())
-//            return cover
-        val retriever = MediaMetadataRetriever()
-        retriever.setDataSource(data)
-        val coverBytes = retriever.embeddedPicture
-        return if (coverBytes != null)
-            BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
-    }
-
-    private fun checkPermission() {
-        TedPermission.with(this)
-                .setPermissionListener(this)
-                .setDeniedMessage("If you reject permission,you can not use this service \n\n Please turn on permissions at Setting => Permission")
-                .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .check()
-    }
-
-    override fun onPermissionGranted() {
-        permissionIsGranted = true
-        getSongs()
-    }
-
-    override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-        permissionIsGranted = false
-        Toast.makeText(this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-    }
-
-//    private fun setDestinationChangeListener() {
-//        val navController: NavController = findNavController(this@MainActivity, R.id.nav_host_fragment)
-//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-//            when (destination.id) {
-//                R.id.trackPlayingFragment -> binding.currentPlayingLayout.visibility = View.GONE
-//                else -> binding.currentPlayingLayout.visibility = View.GONE
-//            }
-//        }
-//    }
 }

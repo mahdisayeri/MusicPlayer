@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/mainFragment"
+    app:startDestination="@id/splashScreenFragment"
     android:id="@+id/nav_graph_offline">
 
     <fragment
@@ -35,4 +35,13 @@
             app:argType="com.tokastudio.music_offline.model.Track[]" />
     </fragment>
     <action android:id="@+id/action_global_trackPlayingFragment" app:destination="@id/trackPlayingFragment"/>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.tokastudio.music_offline.ui.fragment.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

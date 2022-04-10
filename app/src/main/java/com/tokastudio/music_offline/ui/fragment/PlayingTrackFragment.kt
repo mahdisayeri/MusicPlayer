@@ -112,6 +112,16 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
+            toolbar.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.action_shareApp -> {
+                        shareApp(trackService?.currentTrack?.data)
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> return@setOnMenuItemClickListener false
+                }
+            }
+
         }
         binding.clickHandler = ClickHandler()
         return binding.root

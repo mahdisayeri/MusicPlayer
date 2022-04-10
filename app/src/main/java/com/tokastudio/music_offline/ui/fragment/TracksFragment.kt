@@ -7,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.ListItemClickListener
 import com.tokastudio.music_offline.adapter.TrackAdapter
@@ -36,7 +33,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.d("logLoad","TracksOnCreate")
         trackAdapter = TrackAdapter(this)
     }
 
@@ -44,28 +41,28 @@ class TracksFragment : Fragment(), ListItemClickListener {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        Log.d("logLoad","TracksonCreateView")
+
         binding = FragmentTracksBinding.inflate(inflater, container, false)
+        binding.recyclerView.apply {
+            adapter = trackAdapter
+//            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        Log.d("logLoad","TracksonViewCreated")
+        mainViewModel.trackService.observe(viewLifecycleOwner, {
+            trackService = it
+        })
         mainViewModel.tracks.observe(viewLifecycleOwner,{
             if (!it.isNullOrEmpty()){
                 trackList = it as ArrayList<Track>?
                 trackAdapter.setTracks(it)
             }
         })
-
-        mainViewModel.trackService.observe(viewLifecycleOwner, {
-            trackService = it
-        })
-
-        binding.recyclerView.apply {
-            adapter = trackAdapter
-//            addItemDecoration(DividerItemDecoration(context,DividerItemDecoration.VERTICAL))
-        }
 
         mainViewModel.currentPlayingSong.observe(viewLifecycleOwner, {
             val index = trackList?.indexOf(it.track)

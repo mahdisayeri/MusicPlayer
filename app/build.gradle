@@ -126,7 +126,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
    // implementation 'com.wang.avi:library:2.1.3'
-    compile 'io.gresse.hugo.vumeterlibrary:vumeterlibrary:1.0.17'
+    implementation 'io.gresse.hugo.vumeterlibrary:vumeterlibrary:1.0.17'
 
 
 }

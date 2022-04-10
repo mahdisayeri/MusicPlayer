@@ -1,6 +1,7 @@
 package com.tokastudio.music_offline.ui.fragment
 
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -20,6 +21,7 @@ class SectionsPagerAdapter(fragment: Fragment)
     }
 
     override fun createFragment(position: Int): Fragment {
+        Log.d("logSectionPager","createFragment")
         when(position){
             0 -> fragment = favoritesFragment()
             1 -> fragment = tracksFragment()
