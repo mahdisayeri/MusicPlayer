@@ -8,7 +8,9 @@ import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -20,6 +22,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.tokastudio.music_offline.*
@@ -40,6 +43,8 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     private var isTrackServiceRunning = false
     private var trackService: TrackService? = null
 //    private var permissionIsGranted = false
+
+    private lateinit var navController: NavController
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection: ServiceConnection = object : ServiceConnection {
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        navController= findNavController(R.id.nav_host_fragment)
         //   fireBaseInstanceId()
 
         isTrackServiceRunning = isMyServiceRunning(TrackService::class.java)
@@ -72,7 +78,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
 
        // setDestinationChangeListener()
 
-        viewModel.currentPlayingSong.observe(this, {
+        viewModel.currentPlayingSong.observe(this) {
             var isNewTrack = false
             if (trackService?.currentTrack?.id != it.track.id) {
                 isNewTrack = true
@@ -88,18 +94,19 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
                     onTrackPlay(it.position)
                 }
             }
-        })
+        }
 
-        viewModel.trackService.observe(this, {
+        viewModel.trackService.observe(this) {
             trackService = it
             if (it.isPlaying) {
-                it.currentTrack?.let { it1 -> CurrentPlayingSong(it.currentPosition, it1, false) }?.let { it2 -> viewModel.setCurrentSong(it2) }
+                it.currentTrack?.let { it1 -> CurrentPlayingSong(it.currentPosition, it1, false) }
+                    ?.let { it2 -> viewModel.setCurrentSong(it2) }
             } else if (currentPlayingSong != null) {
                 currentPlayingSong?.hideCurrentPlayingLayout = true
                 currentPlayingSong?.track?.isPlaying = false
                 viewModel.setCurrentSong(currentPlayingSong!!)
             }
-        })
+        }
         binding.clickHandler = ClickHandler()
     }
 
@@ -173,6 +180,17 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
         }
     }
 
+    override fun onBackPressed() {
+        val currentDestinationId= navController.currentDestination?.id
+        if (currentDestinationId == R.id.mainFragment){
+                  finish()
+                  return
+        }else{
+            super.onBackPressed()
+        }
+
+    }
+
     private fun showExitDialog() {
         ExitDialog().show(supportFragmentManager, "ExitDialogFragment")
     }
@@ -187,54 +205,54 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     }
 
     override fun onRatingBrnClick(dialog: ExitDialog?) {
-        // openAppRating(this)
+         openAppRating(this)
         dialog!!.dismiss()
     }
 
     companion object {
         private val TAG = MainActivity::class.java.simpleName
-//        fun openAppRating(context: Context) {
-//            // you can also use BuildConfig.APPLICATION_ID
-//            val appId = BuildConfig.APPLICATION_ID
-//            val rateIntent = Intent(Intent.ACTION_VIEW,
-//                    Uri.parse("market://details?id=$appId"))
-//            var marketFound = false
-//
-//            // find all applications able to handle our rateIntent
-//            val otherApps = context.packageManager
-//                    .queryIntentActivities(rateIntent, 0)
-//            for (otherApp in otherApps) {
-//                // look for Google Play application
-//                if (otherApp.activityInfo.applicationInfo.packageName
-//                        == "com.android.vending") {
-//                    val otherAppActivity = otherApp.activityInfo
-//                    val componentName = ComponentName(
-//                            otherAppActivity.applicationInfo.packageName,
-//                            otherAppActivity.name
-//                    )
-//                    // make sure it does NOT open in the stack of your activity
-//                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    // task reparenting if needed
-//                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-//                    // if the Google Play was already open in a search result
-//                    //  this make sure it still go to the app page you requested
-//                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-//                    // this make sure only the Google Play app is allowed to
-//                    // intercept the intent
-//                    rateIntent.component = componentName
-//                    context.startActivity(rateIntent)
-//                    marketFound = true
-//                    break
-//                }
-//            }
-//
-//            // if GP not present on device, open web browser
-//            if (!marketFound) {
-//                val webIntent = Intent(Intent.ACTION_VIEW,
-//                        Uri.parse("https://play.google.com/store/apps/details?id=$appId"))
-//                context.startActivity(webIntent)
-//            }
-//        }
+        fun openAppRating(context: Context) {
+            // you can also use BuildConfig.APPLICATION_ID
+            val appId = BuildConfig.APPLICATION_ID
+            val rateIntent = Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=$appId"))
+            var marketFound = false
+
+            // find all applications able to handle our rateIntent
+            val otherApps = context.packageManager
+                    .queryIntentActivities(rateIntent, 0)
+            for (otherApp in otherApps) {
+                // look for Google Play application
+                if (otherApp.activityInfo.applicationInfo.packageName
+                        == "com.android.vending") {
+                    val otherAppActivity = otherApp.activityInfo
+                    val componentName = ComponentName(
+                            otherAppActivity.applicationInfo.packageName,
+                            otherAppActivity.name
+                    )
+                    // make sure it does NOT open in the stack of your activity
+                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    // task reparenting if needed
+                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
+                    // if the Google Play was already open in a search result
+                    //  this make sure it still go to the app page you requested
+                    rateIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    // this make sure only the Google Play app is allowed to
+                    // intercept the intent
+                    rateIntent.component = componentName
+                    context.startActivity(rateIntent)
+                    marketFound = true
+                    break
+                }
+            }
+
+            // if GP not present on device, open web browser
+            if (!marketFound) {
+                val webIntent = Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$appId"))
+                context.startActivity(webIntent)
+            }
+        }
     }
 
     override fun onSendBtnClick(dialog: DialogFragment, artistName: String, trackName: String) {
