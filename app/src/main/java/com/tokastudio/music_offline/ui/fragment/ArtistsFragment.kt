@@ -15,70 +15,77 @@ import com.tokastudio.music_offline.adapter.ArtistAdapter
 import com.tokastudio.music_offline.databinding.FragmentArtistsBinding
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.ui.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class ArtistsFragment : Fragment(),ListItemClickListener {
+class ArtistsFragment : Fragment(), ListItemClickListener {
 
     private lateinit var pageViewModel: PageViewModel
     private lateinit var artistAdapter: ArtistAdapter
     private lateinit var binding: FragmentArtistsBinding
-    private val artists= ArrayList<List<Track>>()
+    private val artists = ArrayList<List<Track>>()
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("logLoad","ArtistsOnCreate")
+        Log.d("logLoad", "ArtistsOnCreate")
 
-        artistAdapter= ArtistAdapter(this)
+        artistAdapter = ArtistAdapter(this)
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        Log.d("logLoad","ArtistsonCreateView")
-        binding= FragmentArtistsBinding.inflate(inflater, container, false)
+        Log.d("logLoad", "ArtistsonCreateView")
+        binding = FragmentArtistsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("logLoad","ArtistsonViewCreated")
+        Log.d("logLoad", "ArtistsonViewCreated")
         loadArtists()
     }
 
-    private fun loadArtists(){
+    private fun loadArtists() {
 
         binding.recyclerViewArtists.apply {
-            adapter= artistAdapter
+            adapter = artistAdapter
         }
 
-        mainViewModel.tracks.observe(viewLifecycleOwner,{
+        mainViewModel.tracks.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
+             //   CoroutineScope(Dispatchers.Main).launch {
+              //      delay(200)
                     fetchArtist(it)
+             //   }
             }
-        })
+        }
     }
 
-    private fun fetchArtist(tracks: List<Track>){
-        if (artists.isNotEmpty()){
+    private fun fetchArtist(tracks: List<Track>) {
+        if (artists.isNotEmpty()) {
             return
         }
-        val sortedSongs= tracks.sortedBy { it.artistId }
-        var preArtistId= sortedSongs[0].artistId
-        var tempList= ArrayList<Track>()
-        for((index,item) in sortedSongs.withIndex()){
-            if (preArtistId == item.artistId ){
+        val sortedSongs = tracks.sortedBy { it.artistId }
+        var preArtistId = sortedSongs[0].artistId
+        var tempList = ArrayList<Track>()
+        for ((index, item) in sortedSongs.withIndex()) {
+            if (preArtistId == item.artistId) {
                 tempList.add(item)
-            }else{
+            } else {
                 artists.add(tempList)
-                tempList= ArrayList()
+                tempList = ArrayList()
                 tempList.add(item)
-                preArtistId= item.artistId
+                preArtistId = item.artistId
             }
-            if (index == sortedSongs.size-1){
+            if (index == sortedSongs.size - 1) {
                 artists.add(tempList)
             }
         }
@@ -86,7 +93,8 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
     }
 
     companion object {
-        private val TAG= ArtistsFragment::class.simpleName
+        private val TAG = ArtistsFragment::class.simpleName
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -98,18 +106,17 @@ class ArtistsFragment : Fragment(),ListItemClickListener {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        @JvmStatic
-        fun newInstance()= ArtistsFragment()
     }
 
     override fun onListItemClick(position: Int, item: Any) {
-        val songs= item as ArrayList<Track>
+        val songs = item as ArrayList<Track>
         goToArtistFragment(songs)
     }
 
 
-    private fun goToArtistFragment(tracks: List<Track>){
-       val directions= MainFragmentDirections.actionMainFragmentToArtistFragment(tracks.toTypedArray())
-       findNavController().navigate(directions)
+    private fun goToArtistFragment(tracks: List<Track>) {
+        val directions =
+            MainFragmentDirections.actionMainFragmentToArtistFragment(tracks.toTypedArray())
+        findNavController().navigate(directions)
     }
 }

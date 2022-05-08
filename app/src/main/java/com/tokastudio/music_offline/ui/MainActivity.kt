@@ -17,6 +17,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -33,7 +35,7 @@ import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
 
-class MainActivity : AppCompatActivity(), TrackControllerB,
+class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
         ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener {
 
     private val viewModel: MainViewModel by viewModels()
@@ -42,9 +44,9 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     private var boundService = false
     private var isTrackServiceRunning = false
     private var trackService: TrackService? = null
-//    private var permissionIsGranted = false
 
     private lateinit var navController: NavController
+    private var permissionIsGranted = false
 
     /** Defines callbacks for service binding, passed to bindService()  */
     private val connection: ServiceConnection = object : ServiceConnection {
@@ -106,6 +108,11 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
                 currentPlayingSong?.track?.isPlaying = false
                 viewModel.setCurrentSong(currentPlayingSong!!)
             }
+        }
+        if (permissionIsGranted) {
+            fetchMusicFiles()
+        } else {
+            checkPermission()
         }
         binding.clickHandler = ClickHandler()
     }
@@ -323,5 +330,73 @@ class MainActivity : AppCompatActivity(), TrackControllerB,
     override fun onTrackUpdateUi(track: Track?) {
         binding.track = track
         trackService?.isPlaying?.let { onChangePlayPauseButton(it) }
+    }
+
+    private fun checkPermission() {
+        TedPermission.with(this)
+            .setPermissionListener(this)
+            .setDeniedMessage("If you reject permission,you can not use this service \n\n Please turn on permissions at Setting => Permission")
+            .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            .check()
+    }
+
+    override fun onPermissionGranted() {
+        permissionIsGranted = true
+        fetchMusicFiles()
+    }
+
+    override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+        permissionIsGranted = false
+        Toast.makeText(this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    private fun fetchMusicFiles() {
+        val list: MutableList<Track> = mutableListOf()
+        val uri: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
+        val sortOrder = MediaStore.Audio.Media.TITLE + " ASC"
+
+        val cursor: Cursor? =  this.contentResolver.query(
+            uri,
+            null,
+            selection,
+            null,
+            sortOrder)
+        if (cursor != null && cursor.moveToFirst()) {
+            val id: Int = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
+            val title: Int = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
+            val trackNumber: Int = cursor.getColumnIndex(MediaStore.Audio.Media.TRACK)
+            val year: Int = cursor.getColumnIndex(MediaStore.Audio.Media.YEAR)
+            val duration: Int = cursor.getColumnIndex("duration")
+            val data: Int = cursor.getColumnIndex("_data")
+            val dateModified: Int = cursor.getColumnIndex(MediaStore.Audio.Media.DATE_MODIFIED)
+            val albumId: Int = cursor.getColumnIndex("album_id")
+            val albumName: Int = cursor.getColumnIndex("album")
+            val artistId: Int = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST_ID)
+            val artistName: Int = cursor.getColumnIndex("artist")
+
+            // Now loop through the music files
+            do {
+                val audioId: Long = cursor.getLong(id)
+                val audioTitle: String = cursor.getString(title)
+                val audioTrackNumber: Int = cursor.getInt(trackNumber)
+                val audioYear: Int = cursor.getInt(year)
+                val audioDuration: Long = cursor.getLong(duration)
+                val audioData: String = cursor.getString(data)
+                val audioDateModified: Long = cursor.getLong(dateModified)
+                val audioAlbumId: Long = cursor.getLong(albumId)
+                val audioAlbumName: String = cursor.getString(albumName)
+                val audioArtistId: Long = cursor.getLong(artistId)
+                val audioArtistName: String = cursor.getString(artistName)
+
+                // Add the current music to the list
+
+                list.add(Track(audioId, audioTitle, audioTrackNumber, audioYear,
+                    audioDuration, audioData, audioDateModified, audioAlbumId,
+                    audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false))
+            } while (cursor.moveToNext())
+        }
+        cursor?.close()
+        viewModel.setTracks(list)
     }
 }

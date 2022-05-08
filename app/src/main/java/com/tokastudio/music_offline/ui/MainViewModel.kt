@@ -1,11 +1,20 @@
 package com.tokastudio.music_offline.ui
 
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
+import com.tokastudio.music_offline.ui.fragment.SplashScreenFragmentDirections
+import kotlin.coroutines.coroutineContext
 
 class MainViewModel: ViewModel() {
     private val _trackService= MutableLiveData<TrackService>()
@@ -28,5 +37,4 @@ class MainViewModel: ViewModel() {
     fun setTracks(items: List<Track>){
         _tracks.value= items
     }
-
 }

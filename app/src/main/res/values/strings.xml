@@ -7,7 +7,7 @@
     <string name="album_name">Album Name</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="empty_list">Empty List</string>
+    <string name="empty_list">Empty List !</string>
     <string name="share_with">Share With</string>
 
     <string name="show_poster">Poster</string>

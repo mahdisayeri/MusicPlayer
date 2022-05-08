@@ -17,7 +17,6 @@
     <style name="AppTheme.Dark" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/blue_grey_900</item>
         <item name="colorOnPrimary">@color/grey_100</item>
-
         <item name="colorPrimaryVariant">@color/blue_grey_900</item>
         <item name="colorAccent">@color/blue_a400</item>
 <!--        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->

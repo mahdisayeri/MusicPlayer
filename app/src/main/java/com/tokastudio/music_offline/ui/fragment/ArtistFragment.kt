@@ -30,7 +30,7 @@ class ArtistFragment : Fragment(), ListItemClickListener {
     private val args: ArtistFragmentArgs by navArgs()
     private lateinit var trackAdapter: TrackAdapter
 
-    private var trackList: List<Track>?= null
+    private var trackList= listOf<Track>()
     private var trackService: TrackService? = null
     private var currentList: String? = null
 
@@ -57,24 +57,24 @@ class ArtistFragment : Fragment(), ListItemClickListener {
             trackList= args.tracks.toList()
         }
 
-        mainViewModel.trackService.observe(viewLifecycleOwner, {
+        mainViewModel.trackService.observe(viewLifecycleOwner) {
             trackService = it
-        })
+        }
         binding.recyclerViewArtistSongs.apply {
             adapter = trackAdapter
         }
 
-        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner, {
-            val index = trackList?.indexOf(it.track)
-            if (index != -1 && index!= null) {
-                trackAdapter.changePlayingTrack(index,it.track.isPlaying)
+        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
+            val index = trackList.indexOf(it.track)
+            if (index != -1) {
+                trackAdapter.changePlayingTrack(index, it.track.isPlaying)
             }
-        })
+        }
 
         if (!trackList.isNullOrEmpty()) {
-            currentList = trackList!![0].artistName
-            binding.toolbar.title = trackList!![0].artistName
-            trackAdapter.setTracks(trackList!!)
+            currentList = trackList[0].artistName
+            binding.toolbar.title = trackList[0].artistName
+            trackAdapter.setTracks(trackList)
         }
 
 
@@ -83,7 +83,7 @@ class ArtistFragment : Fragment(), ListItemClickListener {
     override fun onListItemClick(position: Int, item: Any) {
         if (trackService?.currentPlayingList != currentList) {
             trackService?.currentPlayingList = currentList
-            trackList?.let { trackService?.setTrackList(it) }
+            trackService?.setTrackList(trackList)
         }
         val song = item as Track
         mainViewModel.setCurrentSong(CurrentPlayingSong(position, song, false))

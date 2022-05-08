@@ -37,10 +37,15 @@ data class Track(
     fun getCover(): ByteArray? {
         return if (cover != null || data.isNullOrEmpty()){
             cover
-        }else{
-            val retriever = MediaMetadataRetriever()
-            retriever.setDataSource(this.data)
-            retriever.embeddedPicture
+        } else{
+            try{
+                val retriever = MediaMetadataRetriever()
+                retriever.setDataSource(this.data)
+                retriever.embeddedPicture
+            }catch (e: Exception){
+                println("Exception of type : $e")
+                null
+            }
         }
     }
 }

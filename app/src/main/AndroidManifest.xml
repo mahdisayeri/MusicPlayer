@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tokastudio.music_offline">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher1"
-        android:roundIcon="@mipmap/ic_launcher1_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher1_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme.Dark">
 
@@ -16,14 +21,10 @@
         <!-- real     ca-app-pub-7955922263522030~9783698203 -->
         <activity
             android:name=".ui.MainActivity"
-            android:configChanges="orientation"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -62,10 +63,4 @@
 
         <service android:name=".service.TrackService" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
 </manifest>

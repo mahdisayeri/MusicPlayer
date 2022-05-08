@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/activity_main.xml" value="0.10347222222222222" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/activity_main2.xml" value="0.11182432432432432" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_artist.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_favorites.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_main.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_tracks.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/list_item_artist.xml" value="0.1" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/list_item_track.xml" value="0.10347222222222222" />
       </map>
     </option>

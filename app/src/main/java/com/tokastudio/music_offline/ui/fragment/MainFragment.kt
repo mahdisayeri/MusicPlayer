@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tokastudio.music_offline.R
+import com.tokastudio.music_offline.adapter.SectionsPagerAdapter
 import com.tokastudio.music_offline.databinding.FragmentMainBinding
 
 private val TAB_TITLES = arrayOf(
@@ -26,12 +27,8 @@ class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding= FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         setTabLayout()
+        return binding.root
     }
 
     private fun setTabLayout(){
@@ -52,15 +49,11 @@ class MainFragment : Fragment() {
                     }
                 }
             }.attach()
-       // viewPager?.currentItem = 1
+//        viewPager?.currentItem = 1
     }
 
     companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private const val ARG_PARAM1 = "param1"
         private val TAG = MainFragment::class.java.simpleName
-
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
