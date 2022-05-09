@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline
+package com.tokastudio.music_offline.interfaces
 
 import com.tokastudio.music_offline.model.Track
 

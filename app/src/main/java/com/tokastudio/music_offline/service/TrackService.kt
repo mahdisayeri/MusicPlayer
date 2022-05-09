@@ -23,14 +23,14 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.R
-import com.tokastudio.music_offline.TrackControllerA
+import com.tokastudio.music_offline.interfaces.TrackControllerA
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.ui.MainActivity
 import java.io.IOException
 import java.util.*
 
 
-class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
+class TrackService : Service(), TrackControllerA,MediaPlayer.OnErrorListener
         ,MediaPlayer.OnPreparedListener , AudioManager.OnAudioFocusChangeListener, OnCompletionListener {
 
     companion object {

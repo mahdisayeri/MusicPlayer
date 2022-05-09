@@ -31,11 +31,12 @@ import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.R
 import com.tokastudio.music_offline.SharedPref.getPrefFav
 import com.tokastudio.music_offline.SharedPref.setPrefFav
-import com.tokastudio.music_offline.TrackControllerB
+import com.tokastudio.music_offline.interfaces.TrackControllerB
 import com.tokastudio.music_offline.databinding.FragmentPlayingTrackBinding
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
+import com.tokastudio.music_offline.shareApp
 import com.tokastudio.music_offline.ui.MainViewModel
 import java.util.concurrent.TimeUnit
 
@@ -115,7 +116,7 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
             toolbar.setOnMenuItemClickListener {
                 when(it.itemId){
                     R.id.action_shareApp -> {
-                        shareApp(trackService?.currentTrack?.data)
+                        context?.let { it1 -> shareApp(it1) }
                         return@setOnMenuItemClickListener true
                     }
                     else -> return@setOnMenuItemClickListener false
@@ -194,9 +195,9 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
             onChangeFavButton(favorite)
         }
 
-        fun shareBtn(view: View?) {
-            shareApp(trackService?.currentTrack?.data)
-        }
+//        fun shareBtn(view: View?) {
+//            shareApp(trackService?.currentTrack?.data)
+//        }
 
         fun showLyricBtn(view: View?) {
             if (showLyric) {
@@ -375,25 +376,6 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
             if (trackService?.mediaPlayer != null) {
                 trackService?.mediaPlayer?.seekTo(seekBar.progress)
             }
-        }
-    }
-
-    private fun shareApp(assetFileName: String?) {
-        val appId = BuildConfig.APPLICATION_ID
-        val provider = Uri.parse("content://$appId")
-        val uriFile = provider.buildUpon().appendPath(assetFileName).build()
-
-        try {
-            val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.type = "*/*"
-            val googlePlayLink = "https://play.google.com/store/apps/details?id=$appId"
-            val shareMessage = resources.getString(R.string.share_message) + "\n" + googlePlayLink
-            shareIntent.putExtra(Intent.EXTRA_STREAM, uriFile)
-            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            startActivity(Intent.createChooser(shareIntent, resources.getString(R.string.share_with)))
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 

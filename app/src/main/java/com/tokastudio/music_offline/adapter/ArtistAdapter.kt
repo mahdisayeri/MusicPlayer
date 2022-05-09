@@ -3,7 +3,7 @@ package com.tokastudio.music_offline.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tokastudio.music_offline.ListItemClickListener
+import com.tokastudio.music_offline.interfaces.ListItemClickListener
 import com.tokastudio.music_offline.databinding.ListItemArtistBinding
 import com.tokastudio.music_offline.model.Track
 

@@ -3,27 +3,18 @@ package com.tokastudio.music_offline.ui
 import android.app.ActivityManager
 import android.content.*
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.os.IBinder
-import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -31,9 +22,12 @@ import com.tokastudio.music_offline.*
 import com.tokastudio.music_offline.databinding.ActivityMainBinding
 import com.tokastudio.music_offline.dialog.ExitDialog
 import com.tokastudio.music_offline.dialog.RequestTrackDialog
+import com.tokastudio.music_offline.interfaces.TrackControllerB
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
+import com.tokastudio.music_offline.ui.fragment.ArtistFragmentDirections
+import com.tokastudio.music_offline.ui.fragment.MainFragmentDirections
 
 class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
         ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener {
@@ -164,9 +158,14 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
 
     inner class ClickHandler {
         fun clickOnCurrentPlayingSong(view: View) {
-            if (currentPlayingSong != null) {
+            val id= navController.currentDestination?.id
+            if (currentPlayingSong != null && id!= null) {
                 // val bundle = bundleOf("position" to currentPlayingSong?.position, "track" to currentPlayingSong?.track)
-                findNavController(this@MainActivity, R.id.nav_host_fragment).navigate(R.id.action_global_trackPlayingFragment) // ,bundle
+                //findNavController(this@MainActivity, R.id.nav_host_fragment).navigate(R.id.action_global_trackPlayingFragment) // ,bundle
+                when(id){
+                    R.id.mainFragment -> navController.navigate(MainFragmentDirections.actionMainFragmentToTrackPlayingFragment())
+                    R.id.artistFragment -> navController.navigate(ArtistFragmentDirections.actionArtistFragmentToTrackPlayingFragment())
+                }
             }
         }
 
@@ -336,7 +335,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
         TedPermission.with(this)
             .setPermissionListener(this)
             .setDeniedMessage(resources.getString(R.string.deniedMessagePermision))
-            .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.FOREGROUND_SERVICE)
+            .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
             .check()
     }
 

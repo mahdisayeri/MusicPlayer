@@ -1,4 +1,4 @@
-package com.tokastudio.music_offline
+package com.tokastudio.music_offline.interfaces
 
 interface TrackControllerA {
     fun onTrackPrevious()

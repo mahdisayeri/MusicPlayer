@@ -1,10 +1,9 @@
 package com.tokastudio.music_offline.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tokastudio.music_offline.ListItemClickListener
+import com.tokastudio.music_offline.interfaces.ListItemClickListener
 import com.tokastudio.music_offline.databinding.ListItemTrackBinding
 import com.tokastudio.music_offline.model.Track
 

@@ -11,6 +11,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.tokastudio.music_offline.R
 import com.tokastudio.music_offline.adapter.SectionsPagerAdapter
 import com.tokastudio.music_offline.databinding.FragmentMainBinding
+import com.tokastudio.music_offline.shareApp
+import kotlinx.android.synthetic.main.fragment_artist.*
 
 private val TAB_TITLES = arrayOf(
         R.string.tab_title_favorites,
@@ -26,7 +28,18 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding= FragmentMainBinding.inflate(inflater, container, false)
+        binding= FragmentMainBinding.inflate(inflater, container, false).apply {
+            toolbar.setOnMenuItemClickListener {
+                when(it.itemId){
+                    R.id.action_shareApp -> {
+                        context?.let { it1 -> shareApp(it1) }
+                        return@setOnMenuItemClickListener true
+                    }
+                   else -> return@setOnMenuItemClickListener false
+
+                }
+            }
+        }
         setTabLayout()
         return binding.root
     }

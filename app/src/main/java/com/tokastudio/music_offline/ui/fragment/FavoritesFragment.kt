@@ -2,15 +2,13 @@ package com.tokastudio.music_offline.ui.fragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.tokastudio.music_offline.Constants
-import com.tokastudio.music_offline.ListItemClickListener
-import com.tokastudio.music_offline.R
+import com.tokastudio.music_offline.interfaces.ListItemClickListener
 import com.tokastudio.music_offline.SharedPref
 import com.tokastudio.music_offline.adapter.TrackAdapter
 import com.tokastudio.music_offline.databinding.FragmentFavoritesBinding
@@ -18,10 +16,6 @@ import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
 import com.tokastudio.music_offline.ui.MainViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment(), ListItemClickListener {
 

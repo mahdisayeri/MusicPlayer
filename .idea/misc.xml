@@ -8,9 +8,12 @@
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_artist.xml" value="0.1" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_favorites.xml" value="0.1" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_main.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_playing_track.xml" value="0.12" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_tab_layout.xml" value="0.11182432432432432" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_tracks.xml" value="0.1" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/list_item_artist.xml" value="0.1" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/list_item_track.xml" value="0.10347222222222222" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/menu/tracks_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

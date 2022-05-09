@@ -1,6 +1,5 @@
 package com.tokastudio.music_offline.ui.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tokastudio.music_offline.ListItemClickListener
+import com.tokastudio.music_offline.interfaces.ListItemClickListener
 import com.tokastudio.music_offline.adapter.TrackAdapter
 import com.tokastudio.music_offline.databinding.FragmentArtistBinding
 import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
 import com.tokastudio.music_offline.ui.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ArtistFragment : Fragment(), ListItemClickListener {
 
@@ -24,7 +24,7 @@ class ArtistFragment : Fragment(), ListItemClickListener {
         private val TAG = TracksFragment::class.simpleName
     }
 
-    private lateinit var viewModel: ArtistViewModel
+    private val viewModel: ArtistViewModel by viewModel()
     private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var binding: FragmentArtistBinding
     private val args: ArtistFragmentArgs by navArgs()
@@ -37,6 +37,9 @@ class ArtistFragment : Fragment(), ListItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         trackAdapter = TrackAdapter(this)
+        if (!args.tracks.isNullOrEmpty()){
+            viewModel.setTracks(args.tracks.toList())
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,21 +50,26 @@ class ArtistFragment : Fragment(), ListItemClickListener {
             }
 
         }
+        binding.recyclerViewArtistSongs.apply {
+            adapter = trackAdapter
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ArtistViewModel::class.java)
-        if (!args.tracks.isNullOrEmpty()){
-            trackList= args.tracks.toList()
-        }
 
         mainViewModel.trackService.observe(viewLifecycleOwner) {
             trackService = it
         }
-        binding.recyclerViewArtistSongs.apply {
-            adapter = trackAdapter
+
+        viewModel.tracks.observe(viewLifecycleOwner){
+            if (it.isNotEmpty() && trackList.isEmpty()){
+                trackList= it
+                currentList =it[0].artistName
+                binding.toolbar.title = it[0].artistName
+                trackAdapter.setTracks(it)
+            }
         }
 
         mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
@@ -70,14 +78,6 @@ class ArtistFragment : Fragment(), ListItemClickListener {
                 trackAdapter.changePlayingTrack(index, it.track.isPlaying)
             }
         }
-
-        if (!trackList.isNullOrEmpty()) {
-            currentList = trackList[0].artistName
-            binding.toolbar.title = trackList[0].artistName
-            trackAdapter.setTracks(trackList)
-        }
-
-
     }
 
     override fun onListItemClick(position: Int, item: Any) {

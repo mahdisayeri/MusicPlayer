@@ -1,14 +1,10 @@
 <resources>
-    <string name="app_name">TOKA Player</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name" translatable="false">TS Player</string>
 
     <string name="exit">Exit</string>
     <string name="album_name">Album Name</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="empty_list">Empty List !</string>
-    <string name="share_with">Share With</string>
+    <string name="share_with">Share With: </string>
 
     <string name="show_poster">Poster</string>
     <string name="other_apps">Other Apps</string>
@@ -52,11 +48,9 @@
     <string name="enter_artistName">Artist Name</string>
     <string name="message_support">Support us by giving stars</string>
     <string name="artist_name">Artist Name</string>
-    <string name="share_message">Anthology of the best songs of Shadmehr Aghili download from Google Play</string>
+    <string name="share_message">Download from Google Play</string>
     <string name="track_name">Track Name</string>
     <string name="favorite">Favorite</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="exit_message">Double Click On Back Button!</string>
     <string name="deniedMessagePermision">"If you reject permission,you can not use this service \n\n Please turn on permissions at Setting => Permission"</string>
 

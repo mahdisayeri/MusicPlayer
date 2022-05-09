@@ -24,9 +24,10 @@
         android:layout_height="wrap_content">
 
 <!--        style="@style/AppTheme.PopupOverlay"-->
+<!--        app:menu="@menu/tracks_menu"-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:menu="@menu/tracks_menu"
+
             app:navigationIcon="@drawable/ic_round_keyboard_arrow_down_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
