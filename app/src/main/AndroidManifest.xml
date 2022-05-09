@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher1_round"
         android:supportsRtl="false"
+        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme.Dark">
 
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->

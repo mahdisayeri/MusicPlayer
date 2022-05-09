@@ -220,14 +220,20 @@ class TrackService : Service(), TrackControllerA ,MediaPlayer.OnErrorListener
     }
 
     private fun fetchStorageSongCover(path: String): Bitmap?{
+        try{
             val retriever = MediaMetadataRetriever()
             retriever.setDataSource(path)
             val coverBytes = retriever.embeddedPicture
             val songCover: Bitmap?= if (coverBytes != null) //se l'array di byte non è vuoto, crea una bitmap
                 BitmapFactory.decodeByteArray(coverBytes, 0, coverBytes.size) else null
-
             currentTrackCover=songCover
             return songCover
+        }catch (e: Exception){
+
+        }
+        return null
+
+
 //            val trackCover: BitmapDrawable
 //            if (songCover!= null){
 //                trackCover = BitmapDrawable(view.context.resources, songCover)

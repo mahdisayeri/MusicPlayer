@@ -335,8 +335,8 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
     private fun checkPermission() {
         TedPermission.with(this)
             .setPermissionListener(this)
-            .setDeniedMessage("If you reject permission,you can not use this service \n\n Please turn on permissions at Setting => Permission")
-            .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            .setDeniedMessage(resources.getString(R.string.deniedMessagePermision))
+            .setPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,android.Manifest.permission.FOREGROUND_SERVICE)
             .check()
     }
 
