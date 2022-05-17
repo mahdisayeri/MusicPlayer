@@ -7,11 +7,11 @@ import com.tokastudio.music_offline.model.Track
 
 class FavoritesViewModel : ViewModel() {
 
-    private val _favList= MutableLiveData<List<Track>>()
-    val favList: LiveData<List<Track>> = _favList
-
-    fun setFavList(items: List<Track>){
-        _favList.value= items
-    }
+//    private val _favList= MutableLiveData<List<Track>>()
+//    val favList: LiveData<List<Track>> = _favList
+//
+//    fun setFavList(items: List<Track>){
+//        _favList.value= items
+//    }
 
 }

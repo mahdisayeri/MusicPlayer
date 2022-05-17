@@ -57,10 +57,14 @@ class TrackAdapter(private val context: Context,private val listItemClickListene
         }
     }
 
+    fun resetPlayingTrack(){
+        playingPos?.let { notifyItemChanged(it) }
+    }
+
     inner class MyViewHolder(private val binding: ListItemTrackBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) {
-            binding.cardView.animation= AnimationUtils.loadAnimation(context,R.anim.fade_animation)
+         //   binding.cardView.animation= AnimationUtils.loadAnimation(context,R.anim.fade_animation)
             binding.title.text= item.title
             binding.artistName.text= item.artistName
             if (item.isPlaying){

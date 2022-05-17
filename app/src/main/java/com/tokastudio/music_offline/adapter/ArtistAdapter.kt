@@ -34,7 +34,7 @@ class ArtistAdapter(private val context: Context, private val listItemClickListe
 
     inner class MyViewHolder(private val binding: ListItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(items: List<Track>, listItemClickListener: ListItemClickListener) {
-            binding.cardView.animation= AnimationUtils.loadAnimation(context, R.anim.fade_animation)
+          //  binding.cardView.animation= AnimationUtils.loadAnimation(context, R.anim.fade_animation)
             binding.listItem = items[0]
             binding.tracksCount = if(items.size <= 1) "${items.size} track" else "${items.size} tracks"
 

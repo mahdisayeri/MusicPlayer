@@ -68,6 +68,8 @@ class TracksFragment : Fragment(), ListItemClickListener {
                         val index = trackList.indexOf(it.track)
                         if (index != -1 && index < trackList.size) {
                             trackAdapter.changePlayingTrack(index, it.track.isPlaying)
+                        }else{
+                            trackAdapter.resetPlayingTrack()
                         }
                     }
             //    }

@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -29,7 +30,7 @@ import com.tokastudio.music_offline.service.TrackService
 import com.tokastudio.music_offline.ui.fragment.ArtistFragmentDirections
 import com.tokastudio.music_offline.ui.fragment.MainFragmentDirections
 
-class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
+class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,SharedPreferences.OnSharedPreferenceChangeListener,
         ExitDialog.ExitDialogListener, RequestTrackDialog.RequestTrackListener {
 
     private val viewModel: MainViewModel by viewModels()
@@ -125,6 +126,12 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        this.getPreferences(MODE_PRIVATE).registerOnSharedPreferenceChangeListener(this)
+    }
+
+
     private fun isMyServiceRunning(trackService: Class<*>): Boolean {
         val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         for (service in manager.getRunningServices(Int.MAX_VALUE)) {
@@ -139,6 +146,7 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
         super.onStop()
         unbindService(connection)
         boundService = false
+        this.getPreferences(MODE_PRIVATE).unregisterOnSharedPreferenceChangeListener(this)
     }
 
 //    private fun fireBaseInstanceId() {
@@ -155,6 +163,15 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,
 //    override fun onBackPressed() {
 //    //  if(supportFragmentManager.backStackEntryCount==0) showExitDialog() else supportFragmentManager.popBackStack()
 //    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        Log.d("logTestt","onSharedPreferenceChanged")
+        if (key == Constants.PREF_FAV_KEY){
+            val favListIds = SharedPref.getPrefFav(this)
+            viewModel.setFavListId(favListIds)
+            Log.d("logTestt",favListIds.toString())
+        }
+    }
 
     inner class ClickHandler {
         fun clickOnCurrentPlayingSong(view: View) {

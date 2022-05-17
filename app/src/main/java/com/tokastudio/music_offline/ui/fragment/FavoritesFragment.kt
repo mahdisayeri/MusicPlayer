@@ -1,7 +1,9 @@
 package com.tokastudio.music_offline.ui.fragment
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +35,8 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
     private var trackService: TrackService? = null
     private lateinit var trackAdapter: TrackAdapter
     private var currentList: String = Constants.FAVORITE_LIST
-    private var trackList= listOf<Track>()
+    private var allTracks: List<Track>?= null
+    private var favTracks: ArrayList<Track>?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,35 +66,57 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
             adapter = trackAdapter
         }
 
-        mainViewModel.tracks.observe(viewLifecycleOwner) { it1 ->
+        mainViewModel.tracks.observe(viewLifecycleOwner) {
           //  CoroutineScope(Dispatchers.Main).launch {
            //     delay(Constants.DELAY_LOAD_LIST_TIME_MS)
-                val favTracks = ArrayList<Track>()
-                val favListIds = SharedPref.getPrefFav(requireActivity())
-                for (item in favListIds) {
-                    val track = it1.find { it.id == item }
-                    if (track != null) {
-                        favTracks.add(track)
-                    }
-                }
-                viewModel.setFavList(favTracks)
-
-                mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
-                    val index = trackList.indexOf(it.track)
-                    if (index != -1 && index < trackList.size) {
-                        trackAdapter.changePlayingTrack(index, it.track.isPlaying)
-                    }
-                }
-
-                viewModel.favList.observe(viewLifecycleOwner) {
-                    checkList(it)
-                    if (!it.isNullOrEmpty()) {
-                        trackList = it as ArrayList<Track>
-                        trackAdapter.setTracks(it)
-                    }
-                }
+            allTracks= it
+            val favListIds = SharedPref.getPrefFav(requireActivity())
+            fetchFavList(favListIds, it)
          //   }
         }
+
+        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
+            val index = favTracks?.indexOf(it.track)
+            if (index != null) {
+                if (index != -1 && index < favTracks?.size!!) {
+                    trackAdapter.changePlayingTrack(index, it.track.isPlaying)
+                }else{
+                    trackAdapter.resetPlayingTrack()
+                }
+            }
+        }
+
+//        viewModel.favList.observe(viewLifecycleOwner) {
+//            checkList(it)
+//            if (!it.isNullOrEmpty()) {
+//                trackList = it as ArrayList<Track>
+//                trackAdapter.setTracks(it)
+//            }
+//        }
+
+        mainViewModel.favListId.observe(viewLifecycleOwner){
+            allTracks?.let { it1 -> fetchFavList(it, it1) }
+            Log.d("logTestt",it.toString())
+        }
+
+    }
+
+    private fun fetchFavList(favListIds: List<Long>,tracks: List<Track>){
+        if (favTracks == null){
+            favTracks = ArrayList()
+        }else{
+            favTracks?.clear()
+        }
+
+        for (item in favListIds) {
+            val track = tracks.find { it.id == item }
+            if (track != null) {
+                favTracks?.add(track)
+            }
+        }
+       // viewModel.setFavList(favTracks)
+        checkList(favTracks)
+        trackAdapter.setTracks(favTracks!!)
     }
 
     private fun checkList(list: List<Track>?){
@@ -107,7 +132,7 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
     override fun onListItemClick(position: Int, item: Any) {
         if (trackService?.currentPlayingList != currentList) {
             trackService?.currentPlayingList = currentList
-             trackService?.setTrackList(trackList)
+            favTracks?.let { trackService?.setTrackList(it) }
         }
         val song = item as Track
         mainViewModel.setCurrentSong(CurrentPlayingSong(position, song, false))

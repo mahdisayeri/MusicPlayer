@@ -37,4 +37,11 @@ class MainViewModel: ViewModel() {
     fun setTracks(items: List<Track>){
         _tracks.value= items
     }
+
+    private val _favListId= MutableLiveData<List<Long>>()
+    val favListId: LiveData<List<Long>> = _favListId
+
+    fun setFavListId(items: List<Long>){
+        _favListId.value= items
+    }
 }
