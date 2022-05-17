@@ -68,7 +68,7 @@
                     tools:text="Title"
                     android:text="@{track.title}"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorButtonNormal"
+                    android:textColor="?attr/colorPrimary"
                     android:maxLines="1"
                     android:textDirection="ltr"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -78,7 +78,7 @@
                 <TextView
                     tools:text="Artist Name"
                     android:text="@{track.artistName}"
-                    android:textColor="?attr/colorButtonNormal"
+                    android:textColor="?attr/colorPrimary"
                     android:maxLines="1"
                     android:textDirection="ltr"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
@@ -90,8 +90,8 @@
             <ImageButton
                 android:id="@+id/skip_previous"
                 android:src="@drawable/ic_round_skip_previous_24"
-                android:backgroundTint="?attr/colorOnPrimary"
                 android:tint="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:onClick="@{(view) -> clickHandler.clickOnPreviousBtn(view)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -108,8 +108,8 @@
             <ImageButton
                 android:id="@+id/skip_next"
                 android:src="@drawable/ic_round_skip_next_24"
-                android:backgroundTint="?attr/colorOnPrimary"
                 android:tint="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:layout_marginEnd="10dp"
                 android:onClick="@{(view) -> clickHandler.clickOnNextBtn(view)}"
                 android:layout_width="wrap_content"

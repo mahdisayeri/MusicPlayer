@@ -11,4 +11,6 @@
 
     <dimen name="track_cover_large_height">300dp</dimen>
     <dimen name="track_cover_small_height">180dp</dimen>
+
+    <dimen name="track_controller_item_padding">5dp</dimen>
 </resources>

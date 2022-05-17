@@ -3,6 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/current_playing_song_background.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/fav_background.xml" value="0.114" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_favorite.xml" value="0.114" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_play.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_repeat_off.xml" value="0.121" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_round_keyboard_arrow_down_24.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_share.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_shuffle_off.xml" value="0.121" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_shuffle_on.xml" value="0.121" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_skip_next.xml" value="0.121" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/drawable/ic_skip_previous.xml" value="0.121" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/activity_main.xml" value="0.10347222222222222" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/activity_main2.xml" value="0.11182432432432432" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_artist.xml" value="0.1" />
@@ -11,6 +22,7 @@
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_playing_track.xml" value="0.12" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_tab_layout.xml" value="0.11182432432432432" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/fragment_tracks.xml" value="0.1" />
+        <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/home_fragment.xml" value="0.1076388888888889" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/list_item_artist.xml" value="0.1" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/layout/list_item_track.xml" value="0.10347222222222222" />
         <entry key="..\:/Users/Toka/AndroidStudioProjects/Github/MusicPlayer-main/app/src/main/res/menu/tracks_menu.xml" value="0.1" />

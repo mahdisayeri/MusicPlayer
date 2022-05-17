@@ -16,6 +16,10 @@ import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
 import com.tokastudio.music_offline.ui.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment(), ListItemClickListener {
 
@@ -34,7 +38,7 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        trackAdapter = TrackAdapter(this)
+
     }
 
     override fun onCreateView(
@@ -43,6 +47,7 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
     ): View? {
 
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        trackAdapter = TrackAdapter(requireContext(),this)
         return binding.root
     }
 
@@ -59,33 +64,33 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
         }
 
         mainViewModel.tracks.observe(viewLifecycleOwner) { it1 ->
-            val favTracks = ArrayList<Track>()
-            val favListIds = SharedPref.getPrefFav(requireActivity())
-            for (item in favListIds) {
-                val track = it1.find { it.id == item }
-                if (track != null) {
-                    favTracks.add(track)
+          //  CoroutineScope(Dispatchers.Main).launch {
+           //     delay(Constants.DELAY_LOAD_LIST_TIME_MS)
+                val favTracks = ArrayList<Track>()
+                val favListIds = SharedPref.getPrefFav(requireActivity())
+                for (item in favListIds) {
+                    val track = it1.find { it.id == item }
+                    if (track != null) {
+                        favTracks.add(track)
+                    }
                 }
-            }
-            viewModel.setFavList(favTracks)
-        }
+                viewModel.setFavList(favTracks)
 
-        viewModel.favList.observe(viewLifecycleOwner) {
-            checkList(it)
-            if (!it.isNullOrEmpty()) {
-             //   CoroutineScope(Dispatchers.Main).launch {
-             //       delay(200)
-                    trackList = it as ArrayList<Track>
-                    trackAdapter.setTracks(it)
-            //    }
-            }
-        }
+                mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
+                    val index = trackList.indexOf(it.track)
+                    if (index != -1 && index < trackList.size) {
+                        trackAdapter.changePlayingTrack(index, it.track.isPlaying)
+                    }
+                }
 
-        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
-            val index = trackList.indexOf(it.track)
-            if (index != -1 && index < trackList.size) {
-                trackAdapter.changePlayingTrack(index, it.track.isPlaying)
-            }
+                viewModel.favList.observe(viewLifecycleOwner) {
+                    checkList(it)
+                    if (!it.isNullOrEmpty()) {
+                        trackList = it as ArrayList<Track>
+                        trackAdapter.setTracks(it)
+                    }
+                }
+         //   }
         }
     }
 

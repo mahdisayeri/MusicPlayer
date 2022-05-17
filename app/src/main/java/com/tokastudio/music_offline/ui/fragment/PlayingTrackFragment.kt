@@ -3,6 +3,7 @@ package com.tokastudio.music_offline.ui.fragment
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.fragment.app.Fragment
@@ -25,6 +27,9 @@ import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.google.android.gms.ads.formats.UnifiedNativeAdView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.tokastudio.music_offline.BuildConfig
 import com.tokastudio.music_offline.Constants
@@ -45,7 +50,7 @@ import java.util.concurrent.TimeUnit
  * Use the [PlayingTrackFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PlayingTrackFragment : Fragment(), TrackControllerB {
+class PlayingTrackFragment : BottomSheetDialogFragment(), TrackControllerB {
     private lateinit var binding: FragmentPlayingTrackBinding
     private val mainViewModel: MainViewModel by activityViewModels()
    // private val args: PlayingTrackFragmentArgs by navArgs()
@@ -146,6 +151,28 @@ class PlayingTrackFragment : Fragment(), TrackControllerB {
         })
 
 
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), theme)
+        dialog.setOnShowListener {
+
+            val bottomSheetDialog = it as BottomSheetDialog
+            val parentLayout =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            parentLayout?.let { it ->
+                val behaviour = BottomSheetBehavior.from(it)
+                setupFullHeight(it)
+                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+        return dialog
+    }
+
+    private fun setupFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 
     private fun start() {

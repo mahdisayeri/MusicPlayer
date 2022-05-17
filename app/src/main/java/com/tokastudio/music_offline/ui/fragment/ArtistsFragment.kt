@@ -9,11 +9,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.tokastudio.music_offline.Constants
 import com.tokastudio.music_offline.interfaces.ListItemClickListener
 import com.tokastudio.music_offline.adapter.ArtistAdapter
 import com.tokastudio.music_offline.databinding.FragmentArtistsBinding
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.ui.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,7 +35,6 @@ class ArtistsFragment : Fragment(), ListItemClickListener {
         super.onCreate(savedInstanceState)
         Log.d("logLoad", "ArtistsOnCreate")
 
-        artistAdapter = ArtistAdapter(this)
     }
 
     override fun onCreateView(
@@ -39,6 +43,7 @@ class ArtistsFragment : Fragment(), ListItemClickListener {
     ): View? {
         Log.d("logLoad", "ArtistsonCreateView")
         binding = FragmentArtistsBinding.inflate(inflater, container, false)
+        artistAdapter = ArtistAdapter( requireContext(),this)
         return binding.root
     }
 
@@ -56,18 +61,18 @@ class ArtistsFragment : Fragment(), ListItemClickListener {
 
         mainViewModel.tracks.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-             //   CoroutineScope(Dispatchers.Main).launch {
-              //      delay(200)
+           //     CoroutineScope(Dispatchers.Main).launch {
+            //        delay(Constants.DELAY_LOAD_LIST_TIME_MS)
                     fetchArtist(it)
-             //   }
-            }
+               }
+           // }
         }
     }
 
     private fun fetchArtist(tracks: List<Track>) {
-        if (artists.isNotEmpty()) {
-            return
-        }
+//        if (artists.isNotEmpty()) {
+//            return
+//        }
         val sortedSongs = tracks.sortedBy { it.artistId }
         var preArtistId = sortedSongs[0].artistId
         var tempList = ArrayList<Track>()

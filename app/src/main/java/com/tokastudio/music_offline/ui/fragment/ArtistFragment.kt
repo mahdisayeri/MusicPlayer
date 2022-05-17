@@ -36,7 +36,6 @@ class ArtistFragment : Fragment(), ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        trackAdapter = TrackAdapter(this)
         if (!args.tracks.isNullOrEmpty()){
             viewModel.setTracks(args.tracks.toList())
         }
@@ -50,6 +49,7 @@ class ArtistFragment : Fragment(), ListItemClickListener {
             }
 
         }
+        trackAdapter = TrackAdapter(requireContext(),this)
         binding.recyclerViewArtistSongs.apply {
             adapter = trackAdapter
         }

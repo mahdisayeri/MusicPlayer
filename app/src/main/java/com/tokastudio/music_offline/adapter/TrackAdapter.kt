@@ -1,13 +1,22 @@
 package com.tokastudio.music_offline.adapter
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.android.material.color.MaterialColors
+import com.tokastudio.music_offline.R
 import com.tokastudio.music_offline.interfaces.ListItemClickListener
 import com.tokastudio.music_offline.databinding.ListItemTrackBinding
 import com.tokastudio.music_offline.model.Track
+import com.tokastudio.music_offline.utilitis.getColorFromAttr
 
-class TrackAdapter(private val listItemClickListener: ListItemClickListener) : RecyclerView.Adapter<TrackAdapter.MyViewHolder>() {
+class TrackAdapter(private val context: Context,private val listItemClickListener: ListItemClickListener) : RecyclerView.Adapter<TrackAdapter.MyViewHolder>() {
 
     private var tracks= listOf<Track>()
     private var playingPos: Int? = null
@@ -51,12 +60,34 @@ class TrackAdapter(private val listItemClickListener: ListItemClickListener) : R
     inner class MyViewHolder(private val binding: ListItemTrackBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) {
-            binding.listItem = item
-            if (item.isPlaying) playingPos = adapterPosition
-            binding.setClickListener {
-               // changePlayingTrack(adapterPosition)
+            binding.cardView.animation= AnimationUtils.loadAnimation(context,R.anim.fade_animation)
+            binding.title.text= item.title
+            binding.artistName.text= item.artistName
+            if (item.isPlaying){
+                val colorAccent= context.getColorFromAttr(R.attr.colorAccent)
+                binding.title.setTextColor(colorAccent)
+                binding.artistName.setTextColor(colorAccent)
+                binding.vuMeter.visibility= View.VISIBLE
+                playingPos = adapterPosition
+            }else{
+                val colorOnPrimary= context.getColorFromAttr(R.attr.colorOnPrimary)
+                binding.title.setTextColor(colorOnPrimary)
+                binding.artistName.setTextColor(colorOnPrimary)
+                binding.vuMeter.visibility= View.INVISIBLE
+            }
+            loadImage(binding.image,item.getCover())
+
+            binding.cardView.setOnClickListener {
                 listItemClickListener.onListItemClick(adapterPosition, item)
             }
+        }
+
+        private fun loadImage(view: ImageView, image: ByteArray?){
+            Glide.with(view.context)
+                .load(image)
+                .fitCenter()
+                .placeholder(R.drawable.music_icon_placeholder)
+                .into(view)
         }
     }
 }

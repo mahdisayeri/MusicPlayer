@@ -17,7 +17,7 @@
             android:id="@+id/action_mainFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
     </fragment>
-    <fragment
+    <dialog
         android:id="@+id/trackPlayingFragment"
         tools:layout="@layout/fragment_playing_track"
         android:name="com.tokastudio.music_offline.ui.fragment.PlayingTrackFragment"

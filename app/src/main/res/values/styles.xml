@@ -9,6 +9,7 @@
 
     <style name="AppTheme.Light">
         <item name="colorPrimary">@color/grey_100</item>
+        <item name="colorOnPrimary">@color/blue_grey_900</item>
         <item name="colorPrimaryVariant">@color/grey_100</item>
         <item name="colorAccent">@color/blue_a400</item>
 <!--        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->

@@ -14,44 +14,52 @@
             type="String" />
     </data>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_margin="5dp"
-        android:padding="5dp"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{clickListener}"
-        android:gravity="center_vertical"
+        bind:cardElevation="0dp"
+        bind:cardCornerRadius="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image"
-            bind:loadTrackCover="@{listItem.cover}"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
-
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{clickListener}"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="@{listItem.artistName}"
-                android:textDirection="ltr"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                bind:loadTrackCover="@{listItem.cover}"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
 
-            <TextView
-                android:text="@{tracksCount}"
-                android:textDirection="ltr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@{listItem.artistName}"
+                    android:textDirection="ltr"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@{tracksCount}"
+                    android:textDirection="ltr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

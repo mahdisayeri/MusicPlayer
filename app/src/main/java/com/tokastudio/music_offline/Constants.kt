@@ -25,5 +25,6 @@ object Constants {
     const val EMAIL_ADDRESS="tokastudio.requestmusic@gmail.com"
 
     const val VERSION_CODE="VERSION_CODE"
+    const val DELAY_LOAD_LIST_TIME_MS= 250L
 
 }

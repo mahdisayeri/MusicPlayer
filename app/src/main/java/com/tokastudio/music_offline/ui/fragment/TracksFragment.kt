@@ -14,6 +14,10 @@ import com.tokastudio.music_offline.model.CurrentPlayingSong
 import com.tokastudio.music_offline.model.Track
 import com.tokastudio.music_offline.service.TrackService
 import com.tokastudio.music_offline.ui.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * A placeholder fragment containing a simple view.
@@ -30,7 +34,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        trackAdapter = TrackAdapter(this)
+
     }
 
     override fun onCreateView(
@@ -39,6 +43,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
     ): View? {
 
         binding = FragmentTracksBinding.inflate(inflater, container, false)
+        trackAdapter = TrackAdapter(requireContext(),this)
         binding.recyclerView.apply {
             adapter = trackAdapter
             setHasFixedSize(true)
@@ -53,21 +58,21 @@ class TracksFragment : Fragment(), ListItemClickListener {
                 trackService = it
             }
             mainViewModel.tracks.observe(viewLifecycleOwner) {
-                checkList(it)
-             //   CoroutineScope(Dispatchers.Main).launch {
-             //       delay(200)
+              //  CoroutineScope(Dispatchers.Main).launch {
+              //      delay(Constants.DELAY_LOAD_LIST_TIME_MS)
+                    checkList(it)
                     trackList= it
                     trackAdapter.setTracks(it)
-             //   }
 
+                    mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
+                        val index = trackList.indexOf(it.track)
+                        if (index != -1 && index < trackList.size) {
+                            trackAdapter.changePlayingTrack(index, it.track.isPlaying)
+                        }
+                    }
+            //    }
             }
 
-            mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
-                val index = trackList.indexOf(it.track)
-                if (index != -1 && index < trackList.size) {
-                    trackAdapter.changePlayingTrack(index, it.track.isPlaying)
-                }
-            }
     }
 
     private fun checkList(list: List<Track>?){

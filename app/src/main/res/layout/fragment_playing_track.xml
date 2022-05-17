@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="track"
@@ -15,11 +14,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/colorPrimary"
     android:clickable="true"
     android:focusable="true">
 <!--    android:theme="@style/AppTheme.AppBarOverlay"-->
     <com.google.android.material.appbar.AppBarLayout
         app:elevation="0dp"
+        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -27,7 +28,6 @@
 <!--        app:menu="@menu/tracks_menu"-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-
             app:navigationIcon="@drawable/ic_round_keyboard_arrow_down_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -149,7 +149,8 @@
             android:src="@drawable/ic_favorite"
             android:tint="?attr/colorOnPrimary"
             android:layout_gravity="end"
-            android:backgroundTint="?attr/colorPrimarySurface"
+            android:background="?attr/selectableItemBackground"
+            android:padding="5dp"
             android:onClick="@{clickHandler::favBtn}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -165,7 +166,7 @@
 
                 <SeekBar
                     android:id="@+id/seekBar"
-                    android:progressBackgroundTint="@color/blue_50"
+                    android:progressBackgroundTint="?attr/colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true" />
@@ -179,7 +180,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="15dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#ffffff" />
+                    android:textColor="?attr/colorOnPrimary" />
 
                 <TextView
                     android:id="@+id/endTime"
@@ -190,7 +191,7 @@
                     android:layout_marginEnd="15dp"
                     android:text="@string/zero_time"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#ffffff" />
+                    android:textColor="?attr/colorOnPrimary" />
 
             </RelativeLayout>
 
@@ -211,7 +212,7 @@
                     android:background="@drawable/fav_background"
                     android:backgroundTint="?attr/colorAccent"
                     android:src="@drawable/ic_play"
-                    android:tint="@color/blue_50"
+                    android:tint="@color/grey_100"
                     android:onClick="@{clickHandler::playPauseBtn}" />
 
                 <ImageButton
@@ -220,7 +221,9 @@
                     android:layout_height="45dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_skip_previous"
-                    android:backgroundTint="?attr/colorPrimarySurface"
+                    android:tint="?attr/colorOnPrimary"
+                    android:padding="@dimen/track_controller_item_padding"
+                    android:background="?attr/selectableItemBackground"
                     android:onClick="@{clickHandler::previousBtn}"
                     android:layout_toStartOf="@id/playPauseButton"
                     android:layout_marginEnd="20dp" />
@@ -231,7 +234,9 @@
                     android:layout_height="45dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_skip_next"
-                    android:backgroundTint="?attr/colorPrimarySurface"
+                    android:tint="?attr/colorOnPrimary"
+                    android:padding="@dimen/track_controller_item_padding"
+                    android:background="?attr/selectableItemBackground"
                     android:onClick="@{clickHandler::nextBtn}"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/playPauseButton" />
@@ -242,7 +247,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_repeat_off"
-                    android:backgroundTint="?attr/colorPrimarySurface"
+                    android:tint="?attr/colorOnPrimary"
+                    android:padding="@dimen/track_controller_item_padding"
+                    android:background="?attr/selectableItemBackground"
                     android:onClick="@{clickHandler::repeatBtn}"
                     android:layout_marginStart="20dp"
                     android:layout_toEndOf="@id/nextButton" />
@@ -253,7 +260,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_shuffle_off"
-                    android:backgroundTint="?attr/colorPrimarySurface"
+                    android:tint="?attr/colorOnPrimary"
+                    android:padding="@dimen/track_controller_item_padding"
+                    android:background="?attr/selectableItemBackground"
                     android:onClick="@{clickHandler::shuffleBtn}"
                     android:layout_marginEnd="20dp"
                     android:layout_toStartOf="@id/previousButton" />
