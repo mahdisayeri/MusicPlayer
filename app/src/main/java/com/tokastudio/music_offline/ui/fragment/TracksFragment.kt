@@ -28,7 +28,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
     private lateinit var trackAdapter: TrackAdapter
     private lateinit var binding: FragmentTracksBinding
 
-    private var trackList= listOf<Track>()
+    private var trackList = listOf<Track>()
     private var trackService: TrackService? = null
     private var currentList: String = Constants.OFFLINE_LIST
 
@@ -43,7 +43,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
     ): View? {
 
         binding = FragmentTracksBinding.inflate(inflater, container, false)
-        trackAdapter = TrackAdapter(requireContext(),this)
+        trackAdapter = TrackAdapter(requireContext(), this)
         binding.recyclerView.apply {
             adapter = trackAdapter
             setHasFixedSize(true)
@@ -54,36 +54,33 @@ class TracksFragment : Fragment(), ListItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-            mainViewModel.trackService.observe(viewLifecycleOwner) {
-                trackService = it
-            }
-            mainViewModel.tracks.observe(viewLifecycleOwner) {
-              //  CoroutineScope(Dispatchers.Main).launch {
-              //      delay(Constants.DELAY_LOAD_LIST_TIME_MS)
-                    checkList(it)
-                    trackList= it
-                    trackAdapter.setTracks(it)
+        mainViewModel.trackService.observe(viewLifecycleOwner) {
+            trackService = it
+        }
+        mainViewModel.tracks.observe(viewLifecycleOwner) {
+            checkList(it)
+            trackList = it
+            trackAdapter.setTracks(it)
+        }
 
-                    mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
-                        val index = trackList.indexOf(it.track)
-                        if (index != -1 && index < trackList.size) {
-                            trackAdapter.changePlayingTrack(index, it.track.isPlaying)
-                        }else{
-                            trackAdapter.resetPlayingTrack()
-                        }
-                    }
-            //    }
+        mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {
+            val index = trackList.indexOf(it.track)
+            if (index != -1 && index < trackList.size) {
+                trackAdapter.changePlayingTrack(index, it.track.isPlaying)
+            } else {
+                trackAdapter.resetPlayingTrack()
             }
+        }
 
     }
 
-    private fun checkList(list: List<Track>?){
-        if (list.isNullOrEmpty()){
-            binding.recyclerView.visibility= View.INVISIBLE
-            binding.emptyList.visibility= View.VISIBLE
-        }else{
-            binding.recyclerView.visibility= View.VISIBLE
-            binding.emptyList.visibility= View.INVISIBLE
+    private fun checkList(list: List<Track>?) {
+        if (list.isNullOrEmpty()) {
+            binding.recyclerView.visibility = View.INVISIBLE
+            binding.emptyList.visibility = View.VISIBLE
+        } else {
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.emptyList.visibility = View.INVISIBLE
         }
     }
 
@@ -106,7 +103,7 @@ class TracksFragment : Fragment(), ListItemClickListener {
     override fun onListItemClick(position: Int, item: Any) {
         if (trackService?.currentPlayingList != currentList) {
             trackService?.currentPlayingList = currentList
-             trackService?.setTrackList(trackList)
+            trackService?.setTrackList(trackList)
         }
         val song = item as Track
         mainViewModel.setCurrentSong(CurrentPlayingSong(position, song, false))

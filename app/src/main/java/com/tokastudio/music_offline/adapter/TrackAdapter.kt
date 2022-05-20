@@ -79,7 +79,7 @@ class TrackAdapter(private val context: Context,private val listItemClickListene
                 binding.artistName.setTextColor(colorOnPrimary)
                 binding.vuMeter.visibility= View.INVISIBLE
             }
-            loadImage(binding.image,item.getCover())
+            loadImage(binding.image,item.cover)
 
             binding.cardView.setOnClickListener {
                 listItemClickListener.onListItemClick(adapterPosition, item)

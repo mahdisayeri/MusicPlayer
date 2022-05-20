@@ -31,17 +31,10 @@ class ArtistsFragment : Fragment(), ListItemClickListener {
     private val artists = ArrayList<List<Track>>()
     private val mainViewModel: MainViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("logLoad", "ArtistsOnCreate")
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("logLoad", "ArtistsonCreateView")
         binding = FragmentArtistsBinding.inflate(inflater, container, false)
         artistAdapter = ArtistAdapter( requireContext(),this)
         return binding.root
@@ -49,7 +42,6 @@ class ArtistsFragment : Fragment(), ListItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("logLoad", "ArtistsonViewCreated")
         loadArtists()
     }
 
@@ -61,11 +53,8 @@ class ArtistsFragment : Fragment(), ListItemClickListener {
 
         mainViewModel.tracks.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-           //     CoroutineScope(Dispatchers.Main).launch {
-            //        delay(Constants.DELAY_LOAD_LIST_TIME_MS)
                     fetchArtist(it)
                }
-           // }
         }
     }
 

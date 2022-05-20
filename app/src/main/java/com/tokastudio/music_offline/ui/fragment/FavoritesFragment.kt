@@ -67,12 +67,9 @@ class FavoritesFragment : Fragment(), ListItemClickListener {
         }
 
         mainViewModel.tracks.observe(viewLifecycleOwner) {
-          //  CoroutineScope(Dispatchers.Main).launch {
-           //     delay(Constants.DELAY_LOAD_LIST_TIME_MS)
             allTracks= it
             val favListIds = SharedPref.getPrefFav(requireActivity())
             fetchFavList(favListIds, it)
-         //   }
         }
 
         mainViewModel.currentPlayingSong.observe(viewLifecycleOwner) {

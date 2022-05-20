@@ -3,6 +3,7 @@ package com.tokastudio.music_offline.ui
 import android.app.ActivityManager
 import android.content.*
 import android.database.Cursor
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
@@ -409,10 +410,26 @@ class MainActivity : AppCompatActivity(), TrackControllerB,PermissionListener,Sh
 
                 list.add(Track(audioId, audioTitle, audioTrackNumber, audioYear,
                     audioDuration, audioData, audioDateModified, audioAlbumId,
-                    audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false))
+                    audioAlbumName, audioArtistId, audioArtistName, "", isPlaying = false, false, getCover(audioData)))
             } while (cursor.moveToNext())
         }
         cursor?.close()
         viewModel.setTracks(list)
+    }
+
+    private fun getCover(data: String?): ByteArray? {
+        return if (data.isNullOrEmpty()){
+            null
+        } else{
+            Log.d("loadCover= ","true")
+            try{
+                val retriever = MediaMetadataRetriever()
+                retriever.setDataSource(data)
+                retriever.embeddedPicture
+            }catch (e: Exception){
+                println("Exception of type : $e")
+                null
+            }
+        }
     }
 }
